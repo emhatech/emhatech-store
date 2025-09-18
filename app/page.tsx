@@ -5,7 +5,7 @@ import { ChevronRight, Clock, Zap, Shield, Star, ShoppingCart, MessageCircle, Cr
 
 const WA_NUMBER = "6285711087751";
 function openWhatsApp(product: string, price: string){
-  const message = `Halo EMHATECH saya mau beli *${product}* seharga ${price}. Mohon info lebih lanjut.`;
+  const message = `Halo saya mau beli *${product}* seharga ${price}. Mohon info lebih lanjut.`;
   window.open(
     `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`,
     "_blank"
@@ -21,8 +21,8 @@ function calcDiscount(price: string, discount: string): number {
 
 // Flash Sale
 const flashItems = [
-  { id: 1, title: "1 Tahun Sharing (Garansi Tahun)", tag: "Netflix Premium", icon:"🌀", price:"Rp 500.000", discountPrice:"Rp 150.000", stock: 12, maxStock: 50, sold: 38 },
-  { id: 2, title: "SemiPrivate Aldevice (anti limit)", tag: "Netflix Premium", icon:"⛓️", price:"Rp 250.000", discountPrice:"Rp 100.000", stock: 7, maxStock: 30, sold: 23 },
+  { id: Netflix, title: "1 Bulan (Garansi)", tag: "Netflix Premium", icon:"🌀", price:"Rp 50.000", discountPrice:"Rp 30.000", stock: 12, maxStock: 50, sold: 38 },
+  { id: Spotify, title: "1 Bulan (Garansi)", tag: "Spotify Premium", icon:"🎧", price:"Rp 30.000", discountPrice:"Rp 15.000", stock: 12, maxStock: 50, sold: 38 },
 ];
 
 // Best Seller
@@ -36,6 +36,7 @@ const bestSellers = [
 // AI Tools
 const aiTools = [
   { id: "chatgpt", title: "ChatGPT", subtitle: "AI Tools", emoji:"🧠", price:"Rp 50.000 / bulan", discountPrice:"Rp 30.000 / bulan", stock: 30, maxStock: 100, sold: 70 },
+  { id: "blackboxai", title: "Blackboxai", subtitle: "AI Tools", emoji:"💀", price:"Rp 60.000 / bulan", discountPrice:"Rp 30.000 / bulan", stock: 30, maxStock: 100, sold: 70 },
   { id: "gemini", title: "Gemini", subtitle: "AI Tools", emoji:"✨", price:"Rp 50.000 / bulan", discountPrice:"Rp 20.000 / bulan", stock: 25, maxStock: 80, sold: 55 },
   { id: "suno", title: "Suno AI", subtitle: "Music AI", emoji:"🎶", price:"Rp 250.000 / bulan", discountPrice:"Rp 200.000 / bulan", stock: 18, maxStock: 60, sold: 42 },
 ];
@@ -219,4 +220,5 @@ export default function EmhaTechStyle(){
       </button>
     </div>
   );
-}
+    }
+   

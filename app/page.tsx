@@ -5,7 +5,7 @@ import { ChevronRight, Clock, Zap, Shield, Star, ShoppingCart, MessageCircle, Cr
 
 const WA_NUMBER = "6285711087751";
 function openWhatsApp(product: string, price: string){
-  const message = `Halo saya mau beli *${product}* seharga ${price}. Mohon info lebih lanjut.`;
+  const message = `Halo EMHATECH saya mau beli *${product}* seharga ${price}. Mohon info lebih lanjut.`;
   window.open(
     `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`,
     "_blank"
@@ -27,17 +27,17 @@ const flashItems = [
 
 // Best Seller
 const bestSellers = [
-  { id: "capcut", title: "Capcut Pro", subtitle: "Editor", emoji:"✂️", price:"Rp 50.000", discountPrice:"Rp 25.000", stock: 20, maxStock: 50, sold: 30 },
-  { id: "wdp", title: "WDP FAST", subtitle: "Monoton", emoji:"🚀", price:"Rp 80.000", discountPrice:"Rp 50.000", stock: 15, maxStock: 40, sold: 25 },
+  { id: "capcut", title: "Capcut Pro", subtitle: "Editor", emoji:"✂️", price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 20, maxStock: 50, sold: 30 },
+  { id: "canva", title: "Canva", subtitle: "Editor", emoji:"🚀", price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 15, maxStock: 40, sold: 25 },
   { id: "gdrive", title: "GOOGLE DRIVE EDITING PACK", subtitle: "Selamanya", emoji:"📦", price:"Rp 120.000", discountPrice:"Rp 75.000", stock: 10, maxStock: 25, sold: 15 },
   { id: "bot", title: "Source Code Bot", subtitle: "Penjualan otomatis", emoji:"🤖", price:"Rp 150.000", discountPrice:"Rp 100.000", stock: 5, maxStock: 15, sold: 10 },
 ];
 
 // AI Tools
 const aiTools = [
-  { id: "chatgpt", title: "ChatGPT", subtitle: "AI Tools", emoji:"🧠", price:"Rp 100.000 / bulan", discountPrice:"Rp 50.000 / bulan", stock: 30, maxStock: 100, sold: 70 },
-  { id: "gemini", title: "Gemini", subtitle: "AI Tools", emoji:"✨", price:"Rp 120.000 / bulan", discountPrice:"Rp 60.000 / bulan", stock: 25, maxStock: 80, sold: 55 },
-  { id: "suno", title: "Suno AI", subtitle: "Music AI", emoji:"🎶", price:"Rp 80.000 / bulan", discountPrice:"Rp 40.000 / bulan", stock: 18, maxStock: 60, sold: 42 },
+  { id: "chatgpt", title: "ChatGPT", subtitle: "AI Tools", emoji:"🧠", price:"Rp 50.000 / bulan", discountPrice:"Rp 30.000 / bulan", stock: 30, maxStock: 100, sold: 70 },
+  { id: "gemini", title: "Gemini", subtitle: "AI Tools", emoji:"✨", price:"Rp 50.000 / bulan", discountPrice:"Rp 20.000 / bulan", stock: 25, maxStock: 80, sold: 55 },
+  { id: "suno", title: "Suno AI", subtitle: "Music AI", emoji:"🎶", price:"Rp 250.000 / bulan", discountPrice:"Rp 200.000 / bulan", stock: 18, maxStock: 60, sold: 42 },
 ];
 
 // Games
@@ -219,5 +219,4 @@ export default function EmhaTechStyle(){
       </button>
     </div>
   );
-  }
-    
+}

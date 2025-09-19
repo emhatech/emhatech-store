@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Zap, Star, MessageCircle, CreditCard } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
 
-const WA_NUMBER = "6285711087751";
+const WA_NUMBER = "6285711087751"; // ganti nomor WA kamu
 function openWhatsApp(product: string, price: string){
   const message = `Halo saya mau beli *${product}* seharga ${price}. Mohon info lebih lanjut.`;
   window.open(
@@ -17,13 +17,7 @@ function openWhatsApp(product: string, price: string){
   );
 }
 
-function calcDiscount(price: string, discount: string): number {
-  const p = parseInt(price.replace(/\D/g,"")); 
-  const d = parseInt(discount.replace(/\D/g,"")); 
-  if (!p || !d) return 0;
-  return Math.round(((p - d) / p) * 100);
-}
-
+// ========== DATA PRODUK ==========
 const flashItems = [
   { id: 1, title: "1 Tahun Sharing (Garansi Tahun)", tag: "Netflix Premium", icon:"🌀", price:"Rp 500.000", discountPrice:"Rp 150.000", stock: 12, maxStock: 50, sold: 38 },
   { id: 2, title: "SemiPrivate Aldevice (anti limit)", tag: "Netflix Premium", icon:"⛓️", price:"Rp 250.000", discountPrice:"Rp 100.000", stock: 7, maxStock: 30, sold: 23 },
@@ -42,6 +36,7 @@ const aiTools = [
   { id: "suno", title: "Suno AI", subtitle: "Music AI", emoji:"🎶", price:"Rp 80.000 / bulan", discountPrice:"Rp 40.000 / bulan", stock: 18, maxStock: 60, sold: 42 },
 ];
 
+// ========== KOMPONEN UI ==========
 function Card({children}:{children: React.ReactNode}){
   return <div className="relative bg-zinc-900/60 border border-zinc-800 rounded-2xl p-4 shadow-lg">{children}</div>
 }
@@ -51,16 +46,6 @@ function Price({price, discountPrice}:{price:string, discountPrice:string}){
     <div className="mt-1">
       <span className="text-sm text-red-400 line-through mr-2">{price}</span>
       <span className="text-lg font-bold text-emerald-400">{discountPrice}</span>
-    </div>
-  );
-}
-
-function DiscountBadge({price, discountPrice}:{price:string, discountPrice:string}){
-  const off = calcDiscount(price, discountPrice);
-  if (!off) return null;
-  return (
-    <div className="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
-      -{off}%
     </div>
   );
 }
@@ -84,7 +69,7 @@ function StockBar({stock, maxStock, sold}:{stock:number, maxStock:number, sold:n
   );
 }
 
-// ✅ Banner Slider Anime
+// ========== BANNER SLIDER ==========
 function AnimatedHeader(){
   const banners = [
     { id: 1, img: "/banner1.jpg", alt: "Promo Top Up Games" },
@@ -115,6 +100,7 @@ function AnimatedHeader(){
   );
 }
 
+// ========== PAGE ==========
 export default function EmhaTechStyle(){
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-zinc-200">
@@ -129,7 +115,6 @@ export default function EmhaTechStyle(){
           <div className="grid md:grid-cols-2 gap-4">
             {flashItems.map(item=>(
               <Card key={item.id}>
-                <DiscountBadge price={item.price} discountPrice={item.discountPrice}/>
                 <div className="flex gap-3 items-center">
                   <div className="text-3xl">{item.icon}</div>
                   <div className="flex-1">
@@ -138,7 +123,11 @@ export default function EmhaTechStyle(){
                     <Price price={item.price} discountPrice={item.discountPrice}/>
                     <StockBar stock={item.stock} maxStock={item.maxStock} sold={item.sold}/>
                   </div>
-                  <button onClick={() => openWhatsApp(item.title, item.discountPrice)} className="px-3 py-2 bg-indigo-600 rounded-lg text-sm">Beli</button>
+                  <button 
+                    onClick={() => openWhatsApp(item.title, item.discountPrice)} 
+                    className="px-3 py-2 bg-indigo-600 rounded-lg text-sm">
+                    Beli
+                  </button>
                 </div>
               </Card>
             ))}
@@ -151,14 +140,17 @@ export default function EmhaTechStyle(){
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {bestSellers.map(b=>(
               <Card key={b.id}>
-                <DiscountBadge price={b.price} discountPrice={b.discountPrice}/>
                 <div className="flex flex-col items-center gap-2">
                   <div className="text-2xl">{b.emoji}</div>
                   <div className="font-semibold">{b.title}</div>
                   <div className="text-xs text-gray-400">{b.subtitle}</div>
                   <Price price={b.price} discountPrice={b.discountPrice}/>
                   <StockBar stock={b.stock} maxStock={b.maxStock} sold={b.sold}/>
-                  <button onClick={() => openWhatsApp(b.title, b.discountPrice)} className="mt-2 w-full bg-indigo-600 py-1 rounded-lg text-sm">Beli</button>
+                  <button 
+                    onClick={() => openWhatsApp(b.title, b.discountPrice)} 
+                    className="mt-2 w-full bg-indigo-600 py-1 rounded-lg text-sm">
+                    Beli
+                  </button>
                 </div>
               </Card>
             ))}
@@ -171,14 +163,17 @@ export default function EmhaTechStyle(){
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {aiTools.map(a=>(
               <Card key={a.id}>
-                <DiscountBadge price={a.price} discountPrice={a.discountPrice}/>
                 <div className="flex flex-col items-center gap-2">
                   <div className="text-2xl">{a.emoji}</div>
                   <div className="font-semibold">{a.title}</div>
                   <div className="text-xs text-gray-400">{a.subtitle}</div>
                   <Price price={a.price} discountPrice={a.discountPrice}/>
                   <StockBar stock={a.stock} maxStock={a.maxStock} sold={a.sold}/>
-                  <button onClick={() => openWhatsApp(a.title, a.discountPrice)} className="mt-2 w-full bg-indigo-600 py-1 rounded-lg text-sm">Langganan</button>
+                  <button 
+                    onClick={() => openWhatsApp(a.title, a.discountPrice)} 
+                    className="mt-2 w-full bg-indigo-600 py-1 rounded-lg text-sm">
+                    Langganan
+                  </button>
                 </div>
               </Card>
             ))}
@@ -187,10 +182,12 @@ export default function EmhaTechStyle(){
       </main>
 
       {/* Floating WA button */}
-      <button onClick={() => openWhatsApp("Customer Support", "Gratis Konsultasi")} className="fixed bottom-4 right-4 bg-green-500 rounded-full w-12 h-12 flex items-center justify-center shadow-xl">
+      <button 
+        onClick={() => openWhatsApp("Customer Support", "Gratis Konsultasi")} 
+        className="fixed bottom-4 right-4 bg-green-500 rounded-full w-12 h-12 flex items-center justify-center shadow-xl">
         <MessageCircle className="text-white"/>
       </button>
     </div>
   );
-                     }
-   
+  }
+  

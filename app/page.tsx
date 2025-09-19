@@ -31,7 +31,7 @@ const bestSellers = [
   { id: "wdp", title: "WDP FAST", subtitle: "Monoton", emoji:"🚀", price:"Rp 80.000", discountPrice:"Rp 50.000", stock: 15, maxStock: 40, sold: 25 },
   { id: "gdrive", title: "GOOGLE DRIVE EDITING PACK", subtitle: "Selamanya", emoji:"📦", price:"Rp 120.000", discountPrice:"Rp 75.000", stock: 10, maxStock: 25, sold: 15 },
   { id: "bot", title: "Source Code Bot", subtitle: "Penjualan otomatis", emoji:"🤖", price:"Rp 150.000", discountPrice:"Rp 100.000", stock: 5, maxStock: 15, sold: 10 },
-  { id: "canva", title: "Canva Pro", subtitle: "Design Tools", emoji:"🎨", price:"Rp 100.000", discountPrice:"Rp 50.000", stock: 12, maxStock: 30, sold: 18 },
+  { id: "canva", title: "Canva Pro", subtitle: "Design Tools", emoji:"🎨", price:"Rp 30.000", discountPrice:"Rp 10.000", stock: 12, maxStock: 30, sold: 18 },
 ];
 
 // AI Tools

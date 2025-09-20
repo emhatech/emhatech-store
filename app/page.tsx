@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import { ChevronRight, Clock, Zap, Shield, Star, ShoppingCart, MessageCircle, CreditCard } from "lucide-react";
 
+// -------------------- KONFIGURASI --------------------
 const WA_NUMBER = "6285711087751";
 function openWhatsApp(product: string, price: string){
-  const message = `Halo EMHATECH saya mau beli *${product}* seharga ${price}. Mohon info lebih lanjut.`;
+  const message = `Halo EMHATECH 👋 saya mau beli *${product}* seharga ${price}. Mohon info lebih lanjut.`;
   window.open(
     `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`,
     "_blank"
@@ -19,13 +21,12 @@ function calcDiscount(price: string, discount: string): number {
   return Math.round(((p - d) / p) * 100);
 }
 
-// Flash Sale
+// -------------------- DATA PRODUK --------------------
 const flashItems = [
   { id: 1, title: "1 Bulan (Garansi)", tag: "Netflix Premium", icon:"🌀", price:"Rp 100.000", discountPrice:"Rp 50.000", stock: 12, maxStock: 50, sold: 38 },
   { id: 2, title: "SemiPrivate Aldevice (anti limit)", tag: "Spotify Premium", icon:"⛓️", price:"Rp 30.000", discountPrice:"Rp 15.000", stock: 7, maxStock: 30, sold: 23 },
 ];
 
-// Best Seller
 const bestSellers = [
   { id: "capcut", title: "Capcut Pro", subtitle: "Editor", emoji:"✂️", price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 20, maxStock: 50, sold: 30 },
   { id: "config internet", title: "Config Internet", subtitle: "Internet", emoji:"🚀", price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 15, maxStock: 40, sold: 25 },
@@ -34,7 +35,6 @@ const bestSellers = [
   { id: "canva", title: "Canva Pro", subtitle: "Design Tools", emoji:"🎨", price:"Rp 30.000", discountPrice:"Rp 10.000", stock: 12, maxStock: 30, sold: 18 },
 ];
 
-// AI Tools
 const aiTools = [
   { id: "blackboxai", title: "Blackboxai", subtitle: "Design Tools", emoji:"🥷", price:"Rp 60.000", discountPrice:"Rp 30.000", stock: 12, maxStock: 30, sold: 18 },
   { id: "chatgpt", title: "ChatGPT", subtitle: "AI Tools", emoji:"🧠", price:"Rp 60.000 / bulan", discountPrice:"Rp 40.000 / bulan", stock: 30, maxStock: 100, sold: 70 },
@@ -42,7 +42,6 @@ const aiTools = [
   { id: "suno", title: "Suno AI", subtitle: "Music AI", emoji:"🎶", price:"Rp 250.000 / bulan", discountPrice:"Rp 200.000 / bulan", stock: 18, maxStock: 60, sold: 42 },
 ];
 
-// Games
 const games = [
   {name:"Mobile Legends", sub:"Bang Bang", code:"ML", thumb:"🛡️", price:"Rp 40.000", discountPrice:"Rp 20.000", stock: 50, maxStock: 200, sold: 150},
   {name:"FREE FIRE", sub:"Garena", code:"FF", thumb:"🔥", price:"Rp 50.000", discountPrice:"Rp 25.000", stock: 40, maxStock: 150, sold: 110},
@@ -56,6 +55,7 @@ const games = [
   {name:"Roblox", sub:"Roblox Corp.", code:"RBX", thumb:"🧱", price:"Rp 30.000", discountPrice:"Rp 15.000", stock: 25, maxStock: 100, sold: 75},
 ];
 
+// -------------------- HOOK --------------------
 function useCountdown(hours=14){
   const start = useMemo(()=>Date.now(),[]);
   const end = useMemo(()=>start + hours*60*60*1000,[start,hours]);
@@ -68,6 +68,7 @@ function useCountdown(hours=14){
   return {h,m,s};
 }
 
+// -------------------- KOMPONEN UI --------------------
 function Card({children}:{children: React.ReactNode}){
   return <div className="relative bg-zinc-900/60 border border-zinc-800 rounded-2xl p-4 shadow-lg">{children}</div>
 }
@@ -110,10 +111,51 @@ function StockBar({stock, maxStock, sold}:{stock:number, maxStock:number, sold:n
   );
 }
 
+// -------------------- HEADER --------------------
+function HeaderEmhaTech() {
+  return (
+    <header className="relative w-full border-b border-zinc-800">
+      <div className="absolute inset-0">
+        <Image
+          src="/header-bg.jpg"
+          alt="EmhaTech Banner"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/70" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
+        <div className="flex items-center gap-2">
+          <Image src="/logo.png" alt="EmhaTech Logo" width={40} height={40} className="rounded-lg"/>
+          <span className="font-bold text-xl text-white">EmhaTech Store</span>
+        </div>
+        <nav className="hidden md:flex gap-6 text-sm font-medium text-gray-300">
+          <a href="#flashsale" className="hover:text-white">🔥 Flash Sale</a>
+          <a href="#bestseller" className="hover:text-white">⭐ Best Seller</a>
+          <a href="#aitools" className="hover:text-white">🤖 AI Tools</a>
+          <a href="#games" className="hover:text-white">🎮 Games</a>
+        </nav>
+        <button
+          onClick={() => openWhatsApp("Customer Support","Konsultasi Gratis")}
+          className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-lg shadow-lg text-sm"
+        >
+          <MessageCircle className="w-4 h-4"/> Chat CS
+        </button>
+      </div>
+    </header>
+  );
+}
+
+// -------------------- BANNER --------------------
 function Banner(){
   return (
     <div className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-gradient-to-r from-indigo-900 via-indigo-800 to-indigo-700 p-6">
-      <h2 className="text-3xl font-bold text-white">Tempat Top Up Games Termurah! <br/> <span className="text-4xl">emhatech games</span></h2>
+      <h2 className="text-3xl font-bold text-white">
+        Tempat Top Up Games Termurah! <br/> 
+        <span className="text-4xl">emhatech games</span>
+      </h2>
       <ul className="mt-4 text-white/80 space-y-1">
         <li className="flex items-center gap-2"><CreditCard className="w-4 h-4"/> QRIS All Payment</li>
         <li className="flex items-center gap-2"><Zap className="w-4 h-4"/> Akses cepat & mudah</li>
@@ -124,16 +166,19 @@ function Banner(){
   );
 }
 
+// -------------------- MAIN PAGE --------------------
 export default function EmhaTechStyle(){
   const {h,m,s} = useCountdown(13.566);
 
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-zinc-200">
+      <HeaderEmhaTech/>
+
       <main className="max-w-7xl mx-auto px-4 py-6 space-y-10">
         <Banner/>
 
         {/* Flash Sale */}
-        <section>
+        <section id="flashsale">
           <h3 className="text-lg font-semibold mb-3">🔥 Flash Sale</h3>
           <div className="grid md:grid-cols-2 gap-4">
             {flashItems.map(item=>(
@@ -155,7 +200,7 @@ export default function EmhaTechStyle(){
         </section>
 
         {/* Best Seller */}
-        <section>
+        <section id="bestseller">
           <h3 className="text-lg font-semibold mb-3">⭐ Produk Best Seller</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {bestSellers.map(b=>(
@@ -175,7 +220,7 @@ export default function EmhaTechStyle(){
         </section>
 
         {/* AI Tools */}
-        <section>
+        <section id="aitools">
           <h3 className="text-lg font-semibold mb-3">🤖 AI Tools</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {aiTools.map(a=>(
@@ -195,7 +240,7 @@ export default function EmhaTechStyle(){
         </section>
 
         {/* Games */}
-        <section>
+        <section id="games">
           <h3 className="text-lg font-semibold mb-3">🎮 Games</h3>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {games.map(g=>(
@@ -216,9 +261,10 @@ export default function EmhaTechStyle(){
       </main>
 
       {/* Floating WA button */}
-      <button onClick={() => openWhatsApp("Customer Support", "Gratis Konsultasi")} className="fixed bottom-4 right-4 bg-green-500 rounded-full w-12 h-12 flex items-center justify-center shadow-xl">
+      <button onClick={() => openWhatsApp("Customer Support","Gratis Konsultasi")} className="fixed bottom-4 right-4 bg-green-500 rounded-full w-12 h-12 flex items-center justify-center shadow-xl">
         <MessageCircle className="text-white"/>
       </button>
     </div>
   );
-}
+   }
+   

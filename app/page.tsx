@@ -287,3 +287,4 @@ export default function EmhaTechStyle(){
 
       {/* Floating WA button */}
       <button onClick={() => openWhatsApp("Customer Support", "Gratis Konsultasi")} className="fixed bottom-4 right-4 bg-green
+    

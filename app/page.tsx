@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ChevronRight, Clock, Zap, Shield, Star, ShoppingCart, MessageCircle, CreditCard } from "lucide-react";
+import { Zap, Star, MessageCircle, CreditCard } from "lucide-react";
 
 const WA_NUMBER = "6285711087751";
 function openWhatsApp(product: string, price: string){
@@ -110,16 +110,35 @@ function StockBar({stock, maxStock, sold}:{stock:number, maxStock:number, sold:n
   );
 }
 
+// 🔥 Banner pakai gambar
 function Banner(){
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-gradient-to-r from-indigo-900 via-indigo-800 to-indigo-700 p-6">
-      <h2 className="text-3xl font-bold text-white">Tempat Top Up Games Termurah! <br/> <span className="text-4xl">emhatech games</span></h2>
-      <ul className="mt-4 text-white/80 space-y-1">
-        <li className="flex items-center gap-2"><CreditCard className="w-4 h-4"/> QRIS All Payment</li>
-        <li className="flex items-center gap-2"><Zap className="w-4 h-4"/> Akses cepat & mudah</li>
-        <li className="flex items-center gap-2"><Star className="w-4 h-4"/> Dipercaya ribuan gamers</li>
-      </ul>
-      <button onClick={() => openWhatsApp("EmhaTech Games", "Promo")} className="mt-4 px-4 py-2 bg-white text-black rounded-lg">KUNJUNGI</button>
+    <div className="relative overflow-hidden rounded-2xl border border-zinc-800">
+      {/* Gambar background */}
+      <img 
+        src="/banner.jpg" 
+        alt="EmhaTech Banner" 
+        className="w-full h-48 object-cover"
+      />
+
+      {/* Overlay + Teks */}
+      <div className="absolute inset-0 bg-black/50 flex flex-col justify-center p-6">
+        <h2 className="text-3xl font-bold text-white">
+          Tempat Top Up Games Termurah! <br/> 
+          <span className="text-4xl">emhatech games</span>
+        </h2>
+        <ul className="mt-4 text-white/80 space-y-1">
+          <li className="flex items-center gap-2"><CreditCard className="w-4 h-4"/> QRIS All Payment</li>
+          <li className="flex items-center gap-2"><Zap className="w-4 h-4"/> Akses cepat & mudah</li>
+          <li className="flex items-center gap-2"><Star className="w-4 h-4"/> Dipercaya ribuan gamers</li>
+        </ul>
+        <button 
+          onClick={() => openWhatsApp("EmhaTech Games", "Promo")} 
+          className="mt-4 px-4 py-2 bg-white text-black rounded-lg"
+        >
+          KUNJUNGI
+        </button>
+      </div>
     </div>
   );
 }
@@ -221,5 +240,4 @@ export default function EmhaTechStyle(){
       </button>
     </div>
   );
-    }
-   
+}

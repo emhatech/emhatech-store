@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Zap, Star, MessageCircle, CreditCard } from "lucide-react";
+import { ChevronRight, Clock, Zap, Shield, Star, ShoppingCart, MessageCircle, CreditCard } from "lucide-react";
 
 const WA_NUMBER = "6285711087751";
 function openWhatsApp(product: string, price: string){
@@ -110,48 +110,16 @@ function StockBar({stock, maxStock, sold}:{stock:number, maxStock:number, sold:n
   );
 }
 
-// Banner Slideshow
-const banners = [
-  { src: "/banner1.jpg", alt: "Banner 1" },
-  { src: "/banner2.jpg", alt: "Banner 2" },
-  { src: "/banner3.jpg", alt: "Banner 3" },
-];
-
 function Banner(){
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % banners.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-zinc-800">
-      <img 
-        src={banners[index].src} 
-        alt={banners[index].alt} 
-        className="w-full h-48 object-cover transition-all duration-700"
-      />
-      <div className="absolute inset-0 bg-black/50 flex flex-col justify-center p-6">
-        {/* Ukuran teks diperkecil */}
-        <h2 className="text-xl font-bold text-white">
-           <br/> 
-          <span className="text-2xl">Wilujeng Sumping</span>
-        </h2>
-        <ul className="mt-2 text-white/80 space-y-1 text-sm">
-          <li className="flex items-center gap-2"><CreditCard className="w-4 h-4"/> QRIS All Payment</li>
-          <li className="flex items-center gap-2"><Zap className="w-4 h-4"/> Akses cepat & mudah</li>
-          <li className="flex items-center gap-2"><Star className="w-4 h-4"/> Dipercaya ribuan gamers</li>
-        </ul>
-        <button 
-          onClick={() => openWhatsApp("EmhaTech Games", "Promo")} 
-          className="mt-3 px-3 py-1.5 bg-white text-black rounded-lg text-sm"
-        >
-          
-        
-      </div>
+    <div className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-gradient-to-r from-indigo-900 via-indigo-800 to-indigo-700 p-6">
+      <h2 className="text-3xl font-bold text-white"> <br/> <span className="text-4xl">Wilujeng Sumping</span></h2>
+      <ul className="mt-4 text-white/80 space-y-1">
+        <li className="flex items-center gap-2"><CreditCard className="w-4 h-4"/> QRIS All Payment</li>
+        <li className="flex items-center gap-2"><Zap className="w-4 h-4"/> Akses cepat & mudah</li>
+        <li className="flex items-center gap-2"><Star className="w-4 h-4"/> Dipercaya ribuan gamers</li>
+      </ul>
+      <button onClick={() => openWhatsApp("EmhaTech Games", "Promo")} className="mt-4 px-4 py-2 bg-white text-black rounded-lg">KUNJUNGI</button>
     </div>
   );
 }
@@ -254,4 +222,4 @@ export default function EmhaTechStyle(){
     </div>
   );
    }
-  
+    

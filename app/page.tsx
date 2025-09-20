@@ -110,18 +110,31 @@ function StockBar({stock, maxStock, sold}:{stock:number, maxStock:number, sold:n
   );
 }
 
-// 🔥 Banner pakai gambar
+// 🔥 Banner Slideshow
+const banners = [
+  { src: "/banner1.jpg", alt: "Banner 1" },
+  { src: "/banner2.jpg", alt: "Banner 2" },
+  { src: "/banner3.jpg", alt: "Banner 3" },
+];
+
 function Banner(){
+  const [index, setIndex] = useState(0);
+
+  // auto-slide tiap 5 detik
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % banners.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="relative overflow-hidden rounded-2xl border border-zinc-800">
-      {/* Gambar background */}
       <img 
-        src="/banner.jpg" 
-        alt="EmhaTech Banner" 
-        className="w-full h-48 object-cover"
+        src={banners[index].src} 
+        alt={banners[index].alt} 
+        className="w-full h-48 object-cover transition-all duration-700"
       />
-
-      {/* Overlay + Teks */}
       <div className="absolute inset-0 bg-black/50 flex flex-col justify-center p-6">
         <h2 className="text-3xl font-bold text-white">
           Tempat Top Up Games Termurah! <br/> 
@@ -240,4 +253,5 @@ export default function EmhaTechStyle(){
       </button>
     </div>
   );
-}
+   }
+      

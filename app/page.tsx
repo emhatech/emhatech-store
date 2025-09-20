@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ChevronRight, Clock, Zap, Star, ShoppingCart, MessageCircle, CreditCard, Play, Pause, SkipForward } from "lucide-react";
+import { Zap, Star, MessageCircle, CreditCard, Play, Pause } from "lucide-react";
 
 const WA_NUMBER = "6285711087751";
 function openWhatsApp(product: string, price: string){
@@ -18,20 +18,6 @@ function calcDiscount(price: string, discount: string): number {
   if (!p || !d) return 0;
   return Math.round(((p - d) / p) * 100);
 }
-
-// Banner Images
-const banners = [
-  { src: "/banner1.jpg", alt: "Banner 1" },
-  { src: "/banner2.jpg", alt: "Banner 2" },
-  { src: "/banner3.jpg", alt: "Banner 3" },
-];
-
-// Musik Playlist
-const tracks = [
-  { src: "/music1.mp3", title: "Lagu 1" },
-  { src: "/music2.mp3", title: "Lagu 2" },
-  { src: "/music3.mp3", title: "Lagu 3" },
-];
 
 // Flash Sale
 const flashItems = [
@@ -70,7 +56,6 @@ const games = [
   {name:"Roblox", sub:"Roblox Corp.", code:"RBX", thumb:"🧱", price:"Rp 30.000", discountPrice:"Rp 15.000", stock: 25, maxStock: 100, sold: 75},
 ];
 
-// Countdown
 function useCountdown(hours=14){
   const start = useMemo(()=>Date.now(),[]);
   const end = useMemo(()=>start + hours*60*60*1000,[start,hours]);
@@ -83,10 +68,10 @@ function useCountdown(hours=14){
   return {h,m,s};
 }
 
-// Reusable Components
 function Card({children}:{children: React.ReactNode}){
   return <div className="relative bg-zinc-900/60 border border-zinc-800 rounded-2xl p-4 shadow-lg">{children}</div>
 }
+
 function Price({price, discountPrice}:{price:string, discountPrice:string}){
   return (
     <div className="mt-1">
@@ -95,6 +80,7 @@ function Price({price, discountPrice}:{price:string, discountPrice:string}){
     </div>
   );
 }
+
 function DiscountBadge({price, discountPrice}:{price:string, discountPrice:string}){
   const off = calcDiscount(price, discountPrice);
   if (!off) return null;
@@ -104,11 +90,13 @@ function DiscountBadge({price, discountPrice}:{price:string, discountPrice:strin
     </div>
   );
 }
+
 function StockBar({stock, maxStock, sold}:{stock:number, maxStock:number, sold:number}){
   const percent = Math.max(0, Math.min(100, Math.round((stock / maxStock) * 100)));
   let color = "bg-green-500";
   if (percent <= 50) color = "bg-yellow-500";
   if (percent <= 20) color = "bg-red-500";
+
   return (
     <div className="w-full mt-2">
       <div className="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">
@@ -122,10 +110,15 @@ function StockBar({stock, maxStock, sold}:{stock:number, maxStock:number, sold:n
   );
 }
 
-// Banner
+// 🎵 Banner Slideshow dengan Musik
+const banners = [
+  { src: "/banner1.jpg", alt: "Banner 1" },
+  { src: "/banner2.jpg", alt: "Banner 2" },
+  { src: "/banner3.jpg", alt: "Banner 3" },
+];
+
 function Banner(){
   const [index, setIndex] = useState(0);
-  const [trackIndex, setTrackIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
@@ -137,63 +130,55 @@ function Banner(){
   }, []);
 
   useEffect(() => {
-    const bgMusic = new Audio(tracks[trackIndex].src);
+    const bgMusic = new Audio("/bg-music.mp3");
     bgMusic.loop = true;
     setAudio(bgMusic);
-    return () => { bgMusic.pause(); };
-  }, [trackIndex]);
+    return () => {
+      bgMusic.pause();
+    };
+  }, []);
 
   const toggleMusic = () => {
     if (!audio) return;
-    if (playing) { audio.pause(); } else { audio.play(); }
+    if (playing) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
     setPlaying(!playing);
-  };
-  const nextTrack = () => {
-    if (audio) { audio.pause(); }
-    setTrackIndex((prev) => (prev + 1) % tracks.length);
-    setPlaying(false);
   };
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-zinc-800 h-64">
+    <div className="relative overflow-hidden rounded-2xl border border-zinc-800">
       <img 
         src={banners[index].src} 
         alt={banners[index].alt} 
-        className="absolute inset-0 w-full h-full object-cover"
+        className="w-full h-48 object-cover transition-all duration-700"
       />
       <div className="absolute inset-0 bg-black/50 flex flex-col justify-center p-6">
-        <h2 className="text-xl font-bold text-white mb-2">
+        <h2 className="text-xl font-bold text-white">
           Tempat Top Up Games Termurah! <br/> 
           <span className="text-2xl">emhatech games</span>
         </h2>
-        <ul className="text-white/80 space-y-1 text-sm">
+        <ul className="mt-2 text-white/80 space-y-1 text-sm">
           <li className="flex items-center gap-2"><CreditCard className="w-4 h-4"/> QRIS All Payment</li>
           <li className="flex items-center gap-2"><Zap className="w-4 h-4"/> Akses cepat & mudah</li>
           <li className="flex items-center gap-2"><Star className="w-4 h-4"/> Dipercaya ribuan gamers</li>
         </ul>
 
-        {/* 🎶 Tombol musik transparan */}
-        <div className="mt-4 flex items-center gap-2">
-          <button 
-            onClick={toggleMusic} 
-            className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg flex items-center gap-2 text-sm backdrop-blur-md"
-          >
-            {playing ? <Pause className="w-4 h-4"/> : <Play className="w-4 h-4"/>}
-            {playing ? "Pause Musik" : "Putar Musik"} {tracks[trackIndex].title}
-          </button>
-          <button 
-            onClick={nextTrack} 
-            className="px-3 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg flex items-center gap-2 text-sm backdrop-blur-md"
-          >
-            <SkipForward className="w-4 h-4"/> Next
-          </button>
-        </div>
+        {/* 🎶 Tombol Musik */}
+        <button 
+          onClick={toggleMusic} 
+          className="mt-3 px-3 py-1.5 bg-indigo-600 text-white rounded-lg flex items-center gap-2 text-sm"
+        >
+          {playing ? <Pause className="w-4 h-4"/> : <Play className="w-4 h-4"/>}
+          {playing ? "Pause Musik" : "Putar Musik"}
+        </button>
       </div>
     </div>
   );
 }
 
-// Main Component
 export default function EmhaTechStyle(){
   const {h,m,s} = useCountdown(13.566);
 
@@ -286,5 +271,9 @@ export default function EmhaTechStyle(){
       </main>
 
       {/* Floating WA button */}
-      <button onClick={() => openWhatsApp("Customer Support", "Gratis Konsultasi")} className="fixed bottom-4 right-4 bg-green
-    
+      <button onClick={() => openWhatsApp("Customer Support", "Gratis Konsultasi")} className="fixed bottom-4 right-4 bg-green-500 rounded-full w-12 h-12 flex items-center justify-center shadow-xl">
+        <MessageCircle className="text-white"/>
+      </button>
+    </div>
+  );
+}

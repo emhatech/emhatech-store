@@ -110,7 +110,7 @@ function StockBar({stock, maxStock, sold}:{stock:number, maxStock:number, sold:n
   );
 }
 
-// 🔥 Banner Slideshow
+// Banner Slideshow
 const banners = [
   { src: "/banner1.jpg", alt: "Banner 1" },
   { src: "/banner2.jpg", alt: "Banner 2" },
@@ -120,7 +120,6 @@ const banners = [
 function Banner(){
   const [index, setIndex] = useState(0);
 
-  // auto-slide tiap 5 detik
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % banners.length);
@@ -136,18 +135,19 @@ function Banner(){
         className="w-full h-48 object-cover transition-all duration-700"
       />
       <div className="absolute inset-0 bg-black/50 flex flex-col justify-center p-6">
-        <h2 className="text-3xl font-bold text-white">
-          Tempat  <br/> 
-          <span className="text-4xl">Wilujeng Sumping</span>
+        {/* Ukuran teks diperkecil */}
+        <h2 className="text-xl font-bold text-white">
+          Tempat Top Up Games Termurah! <br/> 
+          <span className="text-2xl">emhatech games</span>
         </h2>
-        <ul className="mt-4 text-white/80 space-y-1">
+        <ul className="mt-2 text-white/80 space-y-1 text-sm">
           <li className="flex items-center gap-2"><CreditCard className="w-4 h-4"/> QRIS All Payment</li>
           <li className="flex items-center gap-2"><Zap className="w-4 h-4"/> Akses cepat & mudah</li>
           <li className="flex items-center gap-2"><Star className="w-4 h-4"/> Dipercaya ribuan gamers</li>
         </ul>
         <button 
           onClick={() => openWhatsApp("EmhaTech Games", "Promo")} 
-          className="mt-4 px-4 py-2 bg-white text-black rounded-lg"
+          className="mt-3 px-3 py-1.5 bg-white text-black rounded-lg text-sm"
         >
           KUNJUNGI
         </button>
@@ -254,4 +254,4 @@ export default function EmhaTechStyle(){
     </div>
   );
    }
-      
+  

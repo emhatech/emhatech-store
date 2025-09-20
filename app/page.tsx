@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Zap, Star, MessageCircle, CreditCard } from "lucide-react";
+import { Zap, Star, MessageCircle, CreditCard, Play, Pause } from "lucide-react";
 
 const WA_NUMBER = "6285711087751";
 function openWhatsApp(product: string, price: string){
@@ -110,7 +110,7 @@ function StockBar({stock, maxStock, sold}:{stock:number, maxStock:number, sold:n
   );
 }
 
-// Banner Slideshow
+// 🎵 Banner Slideshow dengan Musik
 const banners = [
   { src: "/banner1.jpg", alt: "Banner 1" },
   { src: "/banner2.jpg", alt: "Banner 2" },
@@ -119,6 +119,8 @@ const banners = [
 
 function Banner(){
   const [index, setIndex] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -126,6 +128,25 @@ function Banner(){
     }, 5000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    const bgMusic = new Audio("/bg-music.mp3");
+    bgMusic.loop = true;
+    setAudio(bgMusic);
+    return () => {
+      bgMusic.pause();
+    };
+  }, []);
+
+  const toggleMusic = () => {
+    if (!audio) return;
+    if (playing) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+    setPlaying(!playing);
+  };
 
   return (
     <div className="relative overflow-hidden rounded-2xl border border-zinc-800">
@@ -135,7 +156,6 @@ function Banner(){
         className="w-full h-48 object-cover transition-all duration-700"
       />
       <div className="absolute inset-0 bg-black/50 flex flex-col justify-center p-6">
-        {/* Ukuran teks diperkecil */}
         <h2 className="text-xl font-bold text-white">
           Tempat Top Up Games Termurah! <br/> 
           <span className="text-2xl">emhatech games</span>
@@ -145,11 +165,14 @@ function Banner(){
           <li className="flex items-center gap-2"><Zap className="w-4 h-4"/> Akses cepat & mudah</li>
           <li className="flex items-center gap-2"><Star className="w-4 h-4"/> Dipercaya ribuan gamers</li>
         </ul>
+
+        {/* 🎶 Tombol Musik */}
         <button 
-          onClick={() => openWhatsApp("EmhaTech Games", "Promo")} 
-          className="mt-3 px-3 py-1.5 bg-white text-black rounded-lg text-sm"
+          onClick={toggleMusic} 
+          className="mt-3 px-3 py-1.5 bg-indigo-600 text-white rounded-lg flex items-center gap-2 text-sm"
         >
-          KUNJUNGI
+          {playing ? <Pause className="w-4 h-4"/> : <Play className="w-4 h-4"/>}
+          {playing ? "Pause Musik" : "Putar Musik"}
         </button>
       </div>
     </div>
@@ -253,5 +276,4 @@ export default function EmhaTechStyle(){
       </button>
     </div>
   );
-    }
-   
+}

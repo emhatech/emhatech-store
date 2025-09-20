@@ -137,8 +137,8 @@ function Banner(){
       <div className="absolute inset-0 bg-black/50 flex flex-col justify-center p-6">
         {/* Ukuran teks diperkecil */}
         <h2 className="text-xl font-bold text-white">
-          Tempat Top Up Games Termurah! <br/> 
-          <span className="text-2xl">emhatech games</span>
+           <br/> 
+          <span className="text-2xl">Wilujeng Sumping</span>
         </h2>
         <ul className="mt-2 text-white/80 space-y-1 text-sm">
           <li className="flex items-center gap-2"><CreditCard className="w-4 h-4"/> QRIS All Payment</li>
@@ -149,7 +149,7 @@ function Banner(){
           onClick={() => openWhatsApp("EmhaTech Games", "Promo")} 
           className="mt-3 px-3 py-1.5 bg-white text-black rounded-lg text-sm"
         >
-          KUNJUNGI
+          
         </button>
       </div>
     </div>

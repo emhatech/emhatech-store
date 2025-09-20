@@ -137,8 +137,8 @@ function Banner(){
       />
       <div className="absolute inset-0 bg-black/50 flex flex-col justify-center p-6">
         <h2 className="text-3xl font-bold text-white">
-          Tempat Top Up Games Termurah! <br/> 
-          <span className="text-4xl">emhatech games</span>
+          Tempat  <br/> 
+          <span className="text-4xl">Wilujeng Sumping</span>
         </h2>
         <ul className="mt-4 text-white/80 space-y-1">
           <li className="flex items-center gap-2"><CreditCard className="w-4 h-4"/> QRIS All Payment</li>

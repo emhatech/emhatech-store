@@ -29,17 +29,19 @@ const flashItems = [
 const bestSellers = [
   { id: "capcut", title: "Capcut Pro", subtitle: "Editor", emoji:"✂️", price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 20, maxStock: 50, sold: 30 },
   { id: "config internet", title: "Config Internet", subtitle: "Internet", emoji:"🚀", price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 15, maxStock: 40, sold: 25 },
-  { id: "gdrive", title: "GOOGLE DRIVE EDITING PACK", subtitle: "Selamanya", emoji:"📦", price:"Rp 120.000", discountPrice:"Rp 75.000", stock: 10, maxStock: 25, sold: 15 },
-  { id: "bot", title: "Source Code Bot", subtitle: "Penjualan otomatis", emoji:"🤖", price:"Rp 150.000", discountPrice:"Rp 100.000", stock: 5, maxStock: 15, sold: 10 },
+  { id: "nordvpn", title: "NordVPN", subtitle: "VPN Premium", emoji:"🛡️", price:"Rp 80.000", discountPrice:"Rp 40.000", stock: 12, maxStock: 30, sold: 18 },
+  { id: "expressvpn", title: "ExpressVPN", subtitle: "VPN Premium", emoji:"🔒", price:"Rp 90.000", discountPrice:"Rp 45.000", stock: 10, maxStock: 25, sold: 15 },
   { id: "canva", title: "Canva Pro", subtitle: "Design Tools", emoji:"🎨", price:"Rp 30.000", discountPrice:"Rp 10.000", stock: 12, maxStock: 30, sold: 18 },
 ];
 
 // AI Tools
 const aiTools = [
-  { id: "blackboxai", title: "Blackboxai", subtitle: "Design Tools", emoji:"🥷", price:"Rp 60.000", discountPrice:"Rp 30.000", stock: 12, maxStock: 30, sold: 18 },
+  { id: "blackboxai", title: "Blackbox AI", subtitle: "Coding Tools", emoji:"🥷", price:"Rp 60.000", discountPrice:"Rp 30.000", stock: 12, maxStock: 30, sold: 18 },
   { id: "chatgpt", title: "ChatGPT", subtitle: "AI Tools", emoji:"🧠", price:"Rp 60.000 / bulan", discountPrice:"Rp 40.000 / bulan", stock: 30, maxStock: 100, sold: 70 },
   { id: "gemini", title: "Gemini", subtitle: "AI Tools", emoji:"✨", price:"Rp 50.000 / bulan", discountPrice:"Rp 20.000 / bulan", stock: 25, maxStock: 80, sold: 55 },
   { id: "suno", title: "Suno AI", subtitle: "Music AI", emoji:"🎶", price:"Rp 250.000 / bulan", discountPrice:"Rp 200.000 / bulan", stock: 18, maxStock: 60, sold: 42 },
+  { id: "klingai", title: "Kling AI", subtitle: "Video AI", emoji:"🎥", price:"Rp 100.000 / bulan", discountPrice:"Rp 70.000 / bulan", stock: 15, maxStock: 40, sold: 25 },
+  { id: "pixverse", title: "Pixverse", subtitle: "Image/Video AI", emoji:"🖼️", price:"Rp 120.000 / bulan", discountPrice:"Rp 80.000 / bulan", stock: 10, maxStock: 25, sold: 15 },
 ];
 
 // Games
@@ -71,7 +73,6 @@ function useCountdown(hours=14){
 function Card({children}:{children: React.ReactNode}){
   return <div className="relative bg-zinc-900/60 border border-zinc-800 rounded-2xl p-4 shadow-lg">{children}</div>
 }
-
 function Price({price, discountPrice}:{price:string, discountPrice:string}){
   return (
     <div className="mt-1">
@@ -80,23 +81,16 @@ function Price({price, discountPrice}:{price:string, discountPrice:string}){
     </div>
   );
 }
-
 function DiscountBadge({price, discountPrice}:{price:string, discountPrice:string}){
   const off = calcDiscount(price, discountPrice);
   if (!off) return null;
-  return (
-    <div className="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
-      -{off}%
-    </div>
-  );
+  return <div className="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">-{off}%</div>;
 }
-
 function StockBar({stock, maxStock, sold}:{stock:number, maxStock:number, sold:number}){
   const percent = Math.max(0, Math.min(100, Math.round((stock / maxStock) * 100)));
   let color = "bg-green-500";
   if (percent <= 50) color = "bg-yellow-500";
   if (percent <= 20) color = "bg-red-500";
-
   return (
     <div className="w-full mt-2">
       <div className="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">
@@ -110,7 +104,7 @@ function StockBar({stock, maxStock, sold}:{stock:number, maxStock:number, sold:n
   );
 }
 
-// 🎵 Banner Slideshow dengan Musik
+// Banner Slideshow
 const banners = [
   { src: "/banner1.jpg", alt: "Banner 1" },
   { src: "/banner2.jpg", alt: "Banner 2" },
@@ -133,28 +127,18 @@ function Banner(){
     const bgMusic = new Audio("/bg-music.mp3");
     bgMusic.loop = true;
     setAudio(bgMusic);
-    return () => {
-      bgMusic.pause();
-    };
+    return () => { bgMusic.pause(); };
   }, []);
 
   const toggleMusic = () => {
     if (!audio) return;
-    if (playing) {
-      audio.pause();
-    } else {
-      audio.play();
-    }
+    if (playing) { audio.pause(); } else { audio.play(); }
     setPlaying(!playing);
   };
 
   return (
     <div className="relative overflow-hidden rounded-2xl border border-zinc-800">
-      <img 
-        src={banners[index].src} 
-        alt={banners[index].alt} 
-        className="w-full h-48 object-cover transition-all duration-700"
-      />
+      <img src={banners[index].src} alt={banners[index].alt} className="w-full h-48 object-cover transition-all duration-700"/>
       <div className="absolute inset-0 bg-black/50 flex flex-col justify-center p-6">
         <h2 className="text-xl font-bold text-white">
           Tempat Top Up Games Termurah! <br/> 
@@ -165,12 +149,7 @@ function Banner(){
           <li className="flex items-center gap-2"><Zap className="w-4 h-4"/> Akses cepat & mudah</li>
           <li className="flex items-center gap-2"><Star className="w-4 h-4"/> Dipercaya ribuan gamers</li>
         </ul>
-
-        {/* 🎶 Tombol Musik */}
-        <button 
-          onClick={toggleMusic} 
-          className="mt-3 px-3 py-1.5 bg-indigo-600 text-white rounded-lg flex items-center gap-2 text-sm"
-        >
+        <button onClick={toggleMusic} className="mt-3 px-3 py-1.5 bg-indigo-600 text-white rounded-lg flex items-center gap-2 text-sm">
           {playing ? <Pause className="w-4 h-4"/> : <Play className="w-4 h-4"/>}
           {playing ? "Pause Musik" : "Putar Musik"}
         </button>

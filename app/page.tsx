@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Zap, Star, MessageCircle, CreditCard, Play, Pause } from "lucide-react";
+import { Zap, Star, MessageCircle, CreditCard, Play, Pause, Sun, Moon } from "lucide-react";
 
 const WA_NUMBER = "6285711087751";
 function openWhatsApp(product: string, price: string){
@@ -21,27 +21,27 @@ function calcDiscount(price: string, discount: string): number {
 
 // Flash Sale
 const flashItems = [
-  { id: 1, title: "1 Bulan (Garansi)", tag: "Netflix Premium", icon:"🌀", price:"Rp 100.000", discountPrice:"Rp 50.000", stock: 12, maxStock: 50, sold: 38 },
-  { id: 2, title: "SemiPrivate Aldevice (anti limit)", tag: "Spotify Premium", icon:"⛓️", price:"Rp 30.000", discountPrice:"Rp 15.000", stock: 7, maxStock: 30, sold: 23 },
+  { id: 1, title: "1 Bulan (Garansi)", tag: "Netflix Premium", icon:"🌀", price:"Rp 50.000", discountPrice:"Rp 30.000", stock: 12, maxStock: 50, sold: 38 },
+  { id: 2, title: "1 Bulan (Garansi)", tag: "Spotify Premium", icon:"⛓️", price:"Rp 30.000", discountPrice:"Rp 15.000", stock: 7, maxStock: 30, sold: 23 },
 ];
 
 // Best Seller
 const bestSellers = [
   { id: "capcut", title: "Capcut Pro", subtitle: "Editor", emoji:"✂️", price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 20, maxStock: 50, sold: 30 },
   { id: "config internet", title: "Config Internet", subtitle: "Internet", emoji:"🚀", price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 15, maxStock: 40, sold: 25 },
-  { id: "nordvpn", title: "NordVPN", subtitle: "VPN Premium", emoji:"🛡️", price:"Rp 80.000", discountPrice:"Rp 40.000", stock: 12, maxStock: 30, sold: 18 },
-  { id: "expressvpn", title: "ExpressVPN", subtitle: "VPN Premium", emoji:"🔒", price:"Rp 90.000", discountPrice:"Rp 45.000", stock: 10, maxStock: 25, sold: 15 },
-  { id: "canva", title: "Canva Pro", subtitle: "Design Tools", emoji:"🎨", price:"Rp 30.000", discountPrice:"Rp 10.000", stock: 12, maxStock: 30, sold: 18 },
+  { id: "nordvpn", title: "NordVPN", subtitle: "1 Tahun", emoji:"🛡️", price:"Rp 80.000", discountPrice:"Rp 50.000", stock: 12, maxStock: 30, sold: 18 },
+  { id: "expressvpn", title: "ExpressVPN", subtitle: "1 Bulan", emoji:"🔒", price:"Rp 20.000", discountPrice:"Rp 15.000", stock: 10, maxStock: 25, sold: 15 },
+  { id: "canva", title: "Canva Pro", subtitle: "Design Tools", emoji:"🎨", price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 12, maxStock: 30, sold: 18 },
 ];
 
 // AI Tools
 const aiTools = [
   { id: "blackboxai", title: "Blackbox AI", subtitle: "Coding Tools", emoji:"🥷", price:"Rp 60.000", discountPrice:"Rp 30.000", stock: 12, maxStock: 30, sold: 18 },
   { id: "chatgpt", title: "ChatGPT", subtitle: "AI Tools", emoji:"🧠", price:"Rp 60.000 / bulan", discountPrice:"Rp 40.000 / bulan", stock: 30, maxStock: 100, sold: 70 },
-  { id: "gemini", title: "Gemini", subtitle: "AI Tools", emoji:"✨", price:"Rp 50.000 / bulan", discountPrice:"Rp 20.000 / bulan", stock: 25, maxStock: 80, sold: 55 },
+  { id: "gemini", title: "Gemini", subtitle: "AI Tools", emoji:"✨", price:"Rp 100.000 / bulan", discountPrice:"Rp 20.000 / bulan", stock: 25, maxStock: 80, sold: 55 },
   { id: "suno", title: "Suno AI", subtitle: "Music AI", emoji:"🎶", price:"Rp 250.000 / bulan", discountPrice:"Rp 200.000 / bulan", stock: 18, maxStock: 60, sold: 42 },
-  { id: "klingai", title: "Kling AI", subtitle: "Video AI", emoji:"🎥", price:"Rp 100.000 / bulan", discountPrice:"Rp 70.000 / bulan", stock: 15, maxStock: 40, sold: 25 },
-  { id: "pixverse", title: "Pixverse", subtitle: "Image/Video AI", emoji:"🖼️", price:"Rp 120.000 / bulan", discountPrice:"Rp 80.000 / bulan", stock: 10, maxStock: 25, sold: 15 },
+  { id: "klingai", title: "Kling AI", subtitle: "Video AI", emoji:"🎥", price:"Rp 10.000 / hari", discountPrice:"Rp 5.000 / hari", stock: 15, maxStock: 40, sold: 25 },
+  { id: "pixverse", title: "Pixverse", subtitle: "Image/Video AI", emoji:"🖼️", price:"Rp 150.000 / bulan", discountPrice:"Rp 120.000 / bulan", stock: 10, maxStock: 25, sold: 15 },
 ];
 
 // Games
@@ -58,18 +58,7 @@ const games = [
   {name:"Roblox", sub:"Roblox Corp.", code:"RBX", thumb:"🧱", price:"Rp 30.000", discountPrice:"Rp 15.000", stock: 25, maxStock: 100, sold: 75},
 ];
 
-function useCountdown(hours=14){
-  const start = useMemo(()=>Date.now(),[]);
-  const end = useMemo(()=>start + hours*60*60*1000,[start,hours]);
-  const [now,setNow]=useState(Date.now());
-  useEffect(()=>{ const t=setInterval(()=>setNow(Date.now()),1000); return ()=>clearInterval(t); },[]);
-  const diff = Math.max(0,end-now);
-  const h = Math.floor(diff/3_600_000);
-  const m = Math.floor((diff%3_600_000)/60_000);
-  const s = Math.floor((diff%60_000)/1_000);
-  return {h,m,s};
-}
-
+// Card components
 function Card({children}:{children: React.ReactNode}){
   return <div className="relative bg-zinc-900/60 border border-zinc-800 rounded-2xl p-4 shadow-lg">{children}</div>
 }
@@ -111,10 +100,8 @@ const banners = [
   { src: "/banner3.jpg", alt: "Banner 3" },
 ];
 
-function Banner(){
+function Banner({ toggleMusic, playing }: { toggleMusic: () => void; playing: boolean }) {
   const [index, setIndex] = useState(0);
-  const [playing, setPlaying] = useState(false);
-  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -122,19 +109,6 @@ function Banner(){
     }, 5000);
     return () => clearInterval(timer);
   }, []);
-
-  useEffect(() => {
-    const bgMusic = new Audio("/bg-music.mp3");
-    bgMusic.loop = true;
-    setAudio(bgMusic);
-    return () => { bgMusic.pause(); };
-  }, []);
-
-  const toggleMusic = () => {
-    if (!audio) return;
-    if (playing) { audio.pause(); } else { audio.play(); }
-    setPlaying(!playing);
-  };
 
   return (
     <div className="relative overflow-hidden rounded-2xl border border-zinc-800">
@@ -162,10 +136,36 @@ function Banner(){
 }
 
 export default function EmhaTechStyle(){
+  const [darkMode, setDarkMode] = useState(true);
+  const [playing, setPlaying] = useState(false);
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const bgMusic = new Audio("/bg-music.mp3");
+    bgMusic.loop = true;
+    setAudio(bgMusic);
+    return () => { bgMusic.pause(); };
+  }, []);
+
+  const toggleMusic = () => {
+    if (!audio) return;
+    if (playing) audio.pause();
+    else audio.play();
+    setPlaying(!playing);
+  };
+
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-zinc-200">
+    <div className={darkMode ? "min-h-screen bg-[#0a0a0f] text-zinc-200" : "min-h-screen bg-white text-black"}>
+      {/* 🔘 Dark/Light Toggle Button */}
+      <button 
+        onClick={() => setDarkMode(!darkMode)} 
+        className="fixed top-4 right-4 z-50 bg-indigo-600 text-white p-2 rounded-full shadow-md"
+      >
+        {darkMode ? <Sun className="w-5 h-5"/> : <Moon className="w-5 h-5"/>}
+      </button>
+
       <main className="max-w-7xl mx-auto px-4 py-6 space-y-10">
-        <Banner/>
+        <Banner toggleMusic={toggleMusic} playing={playing} />
 
         {/* Flash Sale */}
         <section>
@@ -256,5 +256,4 @@ export default function EmhaTechStyle(){
       </button>
     </div>
   );
-  }
-   
+}

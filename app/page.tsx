@@ -55,11 +55,18 @@ const testimonials = [
     text: "Emhatech emang the best, gak pernah kecewa 🎮🔥",
     rating: 5,
   },
+  {
+    id: 4,
+    name: "Rina",
+    avatar: "https://i.pravatar.cc/100?img=4",
+    text: "Pelayanan cepat, admin fast respon. Puas banget 👍",
+    rating: 5,
+  },
 ];
 
 function TestimonialCard({name, avatar, text, rating}:{name:string, avatar:string, text:string, rating:number}){
   return (
-    <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-4 shadow-md flex flex-col items-center text-center">
+    <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-6 shadow-md flex flex-col items-center text-center w-72 mx-auto">
       <img src={avatar} alt={name} className="w-14 h-14 rounded-full mb-3"/>
       <h4 className="font-semibold">{name}</h4>
       <div className="flex mb-2">
@@ -68,6 +75,42 @@ function TestimonialCard({name, avatar, text, rating}:{name:string, avatar:strin
         )}
       </div>
       <p className="text-sm text-gray-300">"{text}"</p>
+    </div>
+  );
+}
+
+function TestimonialSlider(){
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex(prev => (prev + 1) % testimonials.length);
+    }, 4000); // auto slide tiap 4 detik
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="relative overflow-hidden">
+      <div 
+        className="flex transition-transform duration-700 ease-in-out" 
+        style={{transform: `translateX(-${index * 100}%)`}}
+      >
+        {testimonials.map(t => (
+          <div key={t.id} className="flex-shrink-0 w-full flex justify-center">
+            <TestimonialCard {...t}/>
+          </div>
+        ))}
+      </div>
+
+      {/* Indicator */}
+      <div className="flex justify-center mt-3 gap-2">
+        {testimonials.map((_,i)=>(
+          <span 
+            key={i} 
+            className={`w-3 h-3 rounded-full ${i===index ? "bg-indigo-500" : "bg-gray-600"}`}
+          ></span>
+        ))}
+      </div>
     </div>
   );
 }
@@ -219,11 +262,7 @@ export default function EmhaTechStyle(){
         {/* Testimoni */}
         <section>
           <h3 className="text-lg font-semibold mb-3">💬 Testimoni Pelanggan</h3>
-          <div className="grid md:grid-cols-3 gap-4">
-            {testimonials.map(t => (
-              <TestimonialCard key={t.id} {...t}/>
-            ))}
-          </div>
+          <TestimonialSlider/>
         </section>
       </main>
 

@@ -40,7 +40,7 @@ const aiTools = [
   { id: "chatgpt", title: "ChatGPT", subtitle: "AI Tools", emoji:"🧠", price:"Rp 60.000 / bulan", discountPrice:"Rp 40.000 / bulan", stock: 30, maxStock: 100, sold: 70 },
   { id: "gemini", title: "Gemini", subtitle: "AI Tools", emoji:"✨", price:"Rp 50.000 / bulan", discountPrice:"Rp 20.000 / bulan", stock: 25, maxStock: 80, sold: 55 },
   { id: "suno", title: "Suno AI", subtitle: "Music AI", emoji:"🎶", price:"Rp 250.000 / bulan", discountPrice:"Rp 200.000 / bulan", stock: 18, maxStock: 60, sold: 42 },
-  { id: "kling", title: "Kling AI, subtitle: "Video AI", emoji:"🎥", price:"Rp 10.000 / akun", discountPrice: "Rp 5.000 / akun", stock: 99, maxStock: 999999, sold: 700 },
+  { id: "kling", title: "Kling AI, subtitle: "Edit AI", emoji:"🎥", price:"Rp 10.000 / akun", discountPrice: "Rp 5.000 / akun", stock: 99, maxStock: 999999, sold: 700 },
 ];
 
 // Games

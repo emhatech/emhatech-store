@@ -140,11 +140,14 @@ function Banner(){
     <div className="relative overflow-hidden rounded-2xl border border-zinc-800">
       <img src={banners[index].src} alt={banners[index].alt} className="w-full h-48 object-cover transition-all duration-700"/>
       <div className="absolute inset-0 bg-black/50 flex flex-col justify-center p-6">
-        <h2 className="text-xl font-bold text-white">
-          Tempat Top Up Games Termurah! <br/> 
-          <span className="text-2xl">emhatech games</span>
-        </h2>
-        <ul className="mt-2 text-white/80 space-y-1 text-sm">
+        {/* Running Text dengan gradien */}
+        <div className="overflow-hidden whitespace-nowrap mb-2">
+          <h2 className="inline-block text-xl font-bold animate-marquee bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 bg-clip-text text-transparent bg-[length:300%_300%] animate-gradient">
+            Tempat Top Up Games Termurah! — emhatech games — Tempat Top Up Games Termurah! — emhatech games —
+          </h2>
+        </div>
+
+        <ul className="text-white/80 space-y-1 text-sm">
           <li className="flex items-center gap-2"><CreditCard className="w-4 h-4"/> QRIS All Payment</li>
           <li className="flex items-center gap-2"><Zap className="w-4 h-4"/> Akses cepat & mudah</li>
           <li className="flex items-center gap-2"><Star className="w-4 h-4"/> Dipercaya ribuan gamers</li>
@@ -159,8 +162,6 @@ function Banner(){
 }
 
 export default function EmhaTechStyle(){
-  const {h,m,s} = useCountdown(13.566);
-
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-zinc-200">
       <main className="max-w-7xl mx-auto px-4 py-6 space-y-10">
@@ -255,4 +256,5 @@ export default function EmhaTechStyle(){
       </button>
     </div>
   );
-}
+  }
+   

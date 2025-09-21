@@ -19,25 +19,18 @@ function calcDiscount(price: string, discount: string): number {
   return Math.round(((p - d) / p) * 100);
 }
 
-// Banner Images
-const banners = [
-  { src: "/banner1.jpg", alt: "Banner 1" },
-  { src: "/banner2.jpg", alt: "Banner 2" },
-  { src: "/banner3.jpg", alt: "Banner 3" },
-];
-
 // Flash Sale
 const flashItems = [
-  { id: 1, title: "1 Bulan (Garansi)", tag: "Netflix Premium", icon:"🌀", price:"Rp 100.000", discountPrice:"Rp 50.000", stock: 12, maxStock: 50, sold: 38 },
-  { id: 2, title: "SemiPrivate Aldevice (anti limit)", tag: "Spotify Premium", icon:"⛓️", price:"Rp 30.000", discountPrice:"Rp 15.000", stock: 7, maxStock: 30, sold: 23 },
+  { id: 1, title: "1 Bulan (Full Garansi)", tag: "Netflix Premium", icon:"🌀", price:"Rp 100.000", discountPrice:"Rp 50.000", stock: 12, maxStock: 50, sold: 38 },
+  { id: 2, title: "1 Bulan (Full Garansi)", tag: "Spotify Premium", icon:"⛓️", price:"Rp 30.000", discountPrice:"Rp 15.000", stock: 7, maxStock: 30, sold: 23 },
 ];
 
 // Best Seller
 const bestSellers = [
   { id: "capcut", title: "Capcut Pro", subtitle: "Editor", emoji:"✂️", price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 20, maxStock: 50, sold: 30 },
   { id: "config internet", title: "Config Internet", subtitle: "Internet", emoji:"🚀", price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 15, maxStock: 40, sold: 25 },
-  { id: "gdrive", title: "GOOGLE DRIVE EDITING PACK", subtitle: "Selamanya", emoji:"📦", price:"Rp 120.000", discountPrice:"Rp 75.000", stock: 10, maxStock: 25, sold: 15 },
-  { id: "bot", title: "Source Code Bot", subtitle: "Penjualan otomatis", emoji:"🤖", price:"Rp 150.000", discountPrice:"Rp 100.000", stock: 5, maxStock: 15, sold: 10 },
+  { id: "nordvpn", title: "Nord Vpn", subtitle: "1 Tahun", emoji:"📦", price:"Rp 100.000", discountPrice:"Rp 50.000", stock: 10, maxStock: 25, sold: 15 },
+  { id: "expressvpn", title: "Express Vpn", subtitle: "1 Bulan", emoji:"🤖", price:"Rp 20.000", discountPrice:"Rp 15.000", stock: 5, maxStock: 15, sold: 10 },
   { id: "canva", title: "Canva Pro", subtitle: "Design Tools", emoji:"🎨", price:"Rp 30.000", discountPrice:"Rp 10.000", stock: 12, maxStock: 30, sold: 18 },
 ];
 
@@ -47,6 +40,7 @@ const aiTools = [
   { id: "chatgpt", title: "ChatGPT", subtitle: "AI Tools", emoji:"🧠", price:"Rp 60.000 / bulan", discountPrice:"Rp 40.000 / bulan", stock: 30, maxStock: 100, sold: 70 },
   { id: "gemini", title: "Gemini", subtitle: "AI Tools", emoji:"✨", price:"Rp 50.000 / bulan", discountPrice:"Rp 20.000 / bulan", stock: 25, maxStock: 80, sold: 55 },
   { id: "suno", title: "Suno AI", subtitle: "Music AI", emoji:"🎶", price:"Rp 250.000 / bulan", discountPrice:"Rp 200.000 / bulan", stock: 18, maxStock: 60, sold: 42 },
+  { id: "kling", title: "Kling AI, subtitle: "Video AI", emoji:"🎥", price:"Rp 10.000 / akun", discountPrice: "Rp 5.000 / akun", stock: 99, maxStock: 999999, sold: 700 },
 ];
 
 // Games
@@ -63,61 +57,6 @@ const games = [
   {name:"Roblox", sub:"Roblox Corp.", code:"RBX", thumb:"🧱", price:"Rp 30.000", discountPrice:"Rp 15.000", stock: 25, maxStock: 100, sold: 75},
 ];
 
-// Testimoni
-const testimonials = [
-  { id: 1, name: "Andi", avatar: "https://i.pravatar.cc/100?img=1", text: "Top Up cepet banget! Gak nyampe 1 menit langsung masuk 💯", rating: 5 },
-  { id: 2, name: "Siti", avatar: "https://i.pravatar.cc/100?img=2", text: "Harga murah, pelayanan ramah. Bakal langganan terus 😍", rating: 5 },
-  { id: 3, name: "Budi", avatar: "https://i.pravatar.cc/100?img=3", text: "Emhatech emang the best, gak pernah kecewa 🎮🔥", rating: 5 },
-  { id: 4, name: "Rina", avatar: "https://i.pravatar.cc/100?img=4", text: "Pelayanan cepat, admin fast respon. Puas banget 👍", rating: 5 },
-];
-
-function TestimonialCard({name, avatar, text, rating}:{name:string, avatar:string, text:string, rating:number}){
-  return (
-    <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-6 shadow-md flex flex-col items-center text-center w-72 mx-auto">
-      <img src={avatar} alt={name} className="w-14 h-14 rounded-full mb-3"/>
-      <h4 className="font-semibold">{name}</h4>
-      <div className="flex mb-2">
-        {Array.from({length:rating}).map((_,i)=>
-          <span key={i} className="text-yellow-400">★</span>
-        )}
-      </div>
-      <p className="text-sm text-gray-300">"{text}"</p>
-    </div>
-  );
-}
-
-function TestimonialSlider(){
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex(prev => (prev + 1) % testimonials.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, []);
-
-  return (
-    <div className="relative overflow-hidden">
-      <div 
-        className="flex transition-transform duration-700 ease-in-out" 
-        style={{transform: `translateX(-${index * 100}%)`}}
-      >
-        {testimonials.map(t => (
-          <div key={t.id} className="flex-shrink-0 w-full flex justify-center">
-            <TestimonialCard {...t}/>
-          </div>
-        ))}
-      </div>
-      <div className="flex justify-center mt-3 gap-2">
-        {testimonials.map((_,i)=>(
-          <span key={i} className={`w-3 h-3 rounded-full ${i===index ? "bg-indigo-500" : "bg-gray-600"}`}></span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// Countdown
 function useCountdown(hours=14){
   const start = useMemo(()=>Date.now(),[]);
   const end = useMemo(()=>start + hours*60*60*1000,[start,hours]);
@@ -130,10 +69,10 @@ function useCountdown(hours=14){
   return {h,m,s};
 }
 
-// Reusable Components
 function Card({children}:{children: React.ReactNode}){
   return <div className="relative bg-zinc-900/60 border border-zinc-800 rounded-2xl p-4 shadow-lg">{children}</div>
 }
+
 function Price({price, discountPrice}:{price:string, discountPrice:string}){
   return (
     <div className="mt-1">
@@ -142,18 +81,23 @@ function Price({price, discountPrice}:{price:string, discountPrice:string}){
     </div>
   );
 }
+
 function DiscountBadge({price, discountPrice}:{price:string, discountPrice:string}){
   const off = calcDiscount(price, discountPrice);
   if (!off) return null;
   return (
-    <div className="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">-{off}%</div>
+    <div className="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
+      -{off}%
+    </div>
   );
 }
+
 function StockBar({stock, maxStock, sold}:{stock:number, maxStock:number, sold:number}){
   const percent = Math.max(0, Math.min(100, Math.round((stock / maxStock) * 100)));
   let color = "bg-green-500";
   if (percent <= 50) color = "bg-yellow-500";
   if (percent <= 20) color = "bg-red-500";
+
   return (
     <div className="w-full mt-2">
       <div className="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">
@@ -167,7 +111,13 @@ function StockBar({stock, maxStock, sold}:{stock:number, maxStock:number, sold:n
   );
 }
 
-// Banner
+// 🎵 Banner Slideshow dengan Musik
+const banners = [
+  { src: "/banner1.jpg", alt: "Banner 1" },
+  { src: "/banner2.jpg", alt: "Banner 2" },
+  { src: "/banner3.jpg", alt: "Banner 3" },
+];
+
 function Banner(){
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -181,45 +131,55 @@ function Banner(){
   }, []);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const bgMusic = new Audio("/bg-music.mp3");
-      bgMusic.loop = true;
-      setAudio(bgMusic);
-      return () => { bgMusic.pause(); };
-    }
+    const bgMusic = new Audio("/bg-music.mp3");
+    bgMusic.loop = true;
+    setAudio(bgMusic);
+    return () => {
+      bgMusic.pause();
+    };
   }, []);
 
   const toggleMusic = () => {
     if (!audio) return;
-    if (playing) { audio.pause(); } else { audio.play(); }
+    if (playing) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
     setPlaying(!playing);
   };
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-zinc-800 h-64">
-      <img src={banners[index].src} alt={banners[index].alt} className="absolute inset-0 w-full h-full object-cover"/>
+    <div className="relative overflow-hidden rounded-2xl border border-zinc-800">
+      <img 
+        src={banners[index].src} 
+        alt={banners[index].alt} 
+        className="w-full h-48 object-cover transition-all duration-700"
+      />
       <div className="absolute inset-0 bg-black/50 flex flex-col justify-center p-6">
-        <h2 className="text-xl font-bold text-white mb-2">
+        <h2 className="text-xl font-bold text-white">
           Tempat Top Up Games Termurah! <br/> 
           <span className="text-2xl">emhatech games</span>
         </h2>
-        <ul className="text-white/80 space-y-1 text-sm">
+        <ul className="mt-2 text-white/80 space-y-1 text-sm">
           <li className="flex items-center gap-2"><CreditCard className="w-4 h-4"/> QRIS All Payment</li>
           <li className="flex items-center gap-2"><Zap className="w-4 h-4"/> Akses cepat & mudah</li>
           <li className="flex items-center gap-2"><Star className="w-4 h-4"/> Dipercaya ribuan gamers</li>
         </ul>
-        <div className="mt-4">
-          <button onClick={toggleMusic} className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg flex items-center gap-2 text-sm backdrop-blur-md">
-            {playing ? <Pause className="w-4 h-4"/> : <Play className="w-4 h-4"/>}
-            {playing ? "Pause Musik" : "Putar Musik"}
-          </button>
-        </div>
+
+        {/* 🎶 Tombol Musik */}
+        <button 
+          onClick={toggleMusic} 
+          className="mt-3 px-3 py-1.5 bg-indigo-600 text-white rounded-lg flex items-center gap-2 text-sm"
+        >
+          {playing ? <Pause className="w-4 h-4"/> : <Play className="w-4 h-4"/>}
+          {playing ? "Pause Musik" : "Putar Musik"}
+        </button>
       </div>
     </div>
   );
 }
 
-// Main Component
 export default function EmhaTechStyle(){
   const {h,m,s} = useCountdown(13.566);
 
@@ -280,4 +240,42 @@ export default function EmhaTechStyle(){
                 <div className="flex flex-col items-center gap-2">
                   <div className="text-2xl">{a.emoji}</div>
                   <div className="font-semibold">{a.title}</div>
-                  <div className="text-xs text-gray-
+                  <div className="text-xs text-gray-400">{a.subtitle}</div>
+                  <Price price={a.price} discountPrice={a.discountPrice}/>
+                  <StockBar stock={a.stock} maxStock={a.maxStock} sold={a.sold}/>
+                  <button onClick={() => openWhatsApp(a.title, a.discountPrice)} className="mt-2 w-full bg-indigo-600 py-1 rounded-lg text-sm">Langganan</button>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Games */}
+        <section>
+          <h3 className="text-lg font-semibold mb-3">🎮 Games</h3>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {games.map(g=>(
+              <Card key={g.code}>
+                <DiscountBadge price={g.price} discountPrice={g.discountPrice}/>
+                <div className="flex flex-col items-center gap-2">
+                  <div className="text-4xl">{g.thumb}</div>
+                  <div className="font-semibold">{g.name}</div>
+                  <div className="text-xs text-gray-400">{g.sub}</div>
+                  <Price price={g.price} discountPrice={g.discountPrice}/>
+                  <StockBar stock={g.stock} maxStock={g.maxStock} sold={g.sold}/>
+                  <button onClick={() => openWhatsApp(g.name, g.discountPrice)} className="mt-2 w-full bg-indigo-600 py-1 rounded-lg text-sm">Top Up</button>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
+      </main>
+
+      {/* Floating WA button */}
+      <button onClick={() => openWhatsApp("Customer Support", "Gratis Konsultasi")} className="fixed bottom-4 right-4 bg-green-500 rounded-full w-12 h-12 flex items-center justify-center shadow-xl">
+        <MessageCircle className="text-white"/>
+      </button>
+    </div>
+  );
+  }
+   

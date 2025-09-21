@@ -43,7 +43,7 @@ const bestSellers = [
 
 // AI Tools
 const aiTools = [
-  { id: "blackboxai", title: "Blackboxai", subtitle: "Coding Tools", emoji:"🥷", price:"Rp 60.000", discountPrice:"Rp 30.000", stock: 12, maxStock: 30, sold: 18 },
+  { id: "blackboxai", title: "Blackboxai", subtitle: "Design Tools", emoji:"🥷", price:"Rp 60.000", discountPrice:"Rp 30.000", stock: 12, maxStock: 30, sold: 18 },
   { id: "chatgpt", title: "ChatGPT", subtitle: "AI Tools", emoji:"🧠", price:"Rp 60.000 / bulan", discountPrice:"Rp 40.000 / bulan", stock: 30, maxStock: 100, sold: 70 },
   { id: "gemini", title: "Gemini", subtitle: "AI Tools", emoji:"✨", price:"Rp 50.000 / bulan", discountPrice:"Rp 20.000 / bulan", stock: 25, maxStock: 80, sold: 55 },
   { id: "suno", title: "Suno AI", subtitle: "Music AI", emoji:"🎶", price:"Rp 250.000 / bulan", discountPrice:"Rp 200.000 / bulan", stock: 18, maxStock: 60, sold: 42 },
@@ -63,13 +63,12 @@ const games = [
   {name:"Roblox", sub:"Roblox Corp.", code:"RBX", thumb:"🧱", price:"Rp 30.000", discountPrice:"Rp 15.000", stock: 25, maxStock: 100, sold: 75},
 ];
 
-// Testimoni (Nama Indonesia)
+// Testimoni
 const testimonials = [
-  { id: 1, name: "Ahmad Fauzi", avatar: "https://i.pravatar.cc/100?img=12", text: "Top Up Mobile Legends langsung masuk dalam hitungan detik! Mantap banget 👌", rating: 5 },
-  { id: 2, name: "Siti Aisyah", avatar: "https://i.pravatar.cc/100?img=32", text: "Pelayanan ramah, harga jauh lebih murah dibanding tempat lain 😍", rating: 5 },
-  { id: 3, name: "Budi Santoso", avatar: "https://i.pravatar.cc/100?img=47", text: "Gak nyangka bisa secepat ini, recommended banget buat top up 🎮🔥", rating: 5 },
-  { id: 4, name: "Rina Kartika", avatar: "https://i.pravatar.cc/100?img=56", text: "Langganan tiap bulan, gak pernah kecewa sama Emhatech 💯", rating: 5 },
-  { id: 5, name: "Dewi Lestari", avatar: "https://i.pravatar.cc/100?img=65", text: "Proses gampang, bayar pake QRIS langsung beres. Puas banget!", rating: 5 },
+  { id: 1, name: "Andi", avatar: "https://i.pravatar.cc/100?img=1", text: "Top Up cepet banget! Gak nyampe 1 menit langsung masuk 💯", rating: 5 },
+  { id: 2, name: "Siti", avatar: "https://i.pravatar.cc/100?img=2", text: "Harga murah, pelayanan ramah. Bakal langganan terus 😍", rating: 5 },
+  { id: 3, name: "Budi", avatar: "https://i.pravatar.cc/100?img=3", text: "Emhatech emang the best, gak pernah kecewa 🎮🔥", rating: 5 },
+  { id: 4, name: "Rina", avatar: "https://i.pravatar.cc/100?img=4", text: "Pelayanan cepat, admin fast respon. Puas banget 👍", rating: 5 },
 ];
 
 function TestimonialCard({name, avatar, text, rating}:{name:string, avatar:string, text:string, rating:number}){
@@ -279,5 +278,6 @@ export default function EmhaTechStyle(){
               <Card key={a.id}>
                 <DiscountBadge price={a.price} discountPrice={a.discountPrice}/>
                 <div className="flex flex-col items-center gap-2">
-
-   
+                  <div className="text-2xl">{a.emoji}</div>
+                  <div className="font-semibold">{a.title}</div>
+                  <div className="text-xs text-gray-

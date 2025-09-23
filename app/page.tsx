@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Zap, Star, MessageCircle, CreditCard, Play, Pause, Sun, Moon } from "lucide-react";
 
 const WA_NUMBER = "6285711087751";
@@ -19,46 +19,117 @@ function calcDiscount(price: string, discount: string): number {
   return Math.round(((p - d) / p) * 100);
 }
 
-// Flash Sale
+/** ==== Thumbnail gambar dengan fallback emoji ==== */
+function Thumb({ src, emoji, alt }: { src?: string; emoji?: string; alt: string }) {
+  const [broken, setBroken] = useState(false);
+  const showImg = src && !broken;
+
+  return (
+    <div className="w-12 h-12 rounded-lg overflow-hidden bg-zinc-800 flex items-center justify-center shrink-0">
+      {showImg ? (
+        <img
+          src={src}
+          alt={alt}
+          className="w-full h-full object-cover"
+          loading="lazy"
+          onError={() => setBroken(true)}
+        />
+      ) : (
+        <span className="text-2xl select-none" aria-label={alt}>
+          {emoji ?? "🖼️"}
+        </span>
+      )}
+    </div>
+  );
+}
+
+/* ================== DATA ================== */
+/** Flash Sale */
 const flashItems = [
-  { id: 1, title: "1 Bulan (Garansi)", tag: "Netflix Premium", icon:"🌀", price:"Rp 50.000", discountPrice:"Rp 30.000", stock: 12, maxStock: 50, sold: 38 },
-  { id: 2, title: "1 Bulan (Garansi)", tag: "Spotify Premium", icon:"⛓️", price:"Rp 30.000", discountPrice:"Rp 15.000", stock: 7, maxStock: 30, sold: 23 },
+  { id: 1, title: "1 Bulan (Garansi)", tag: "Netflix Premium", emoji:"🌀", 
+    image: "https://i.imgur.com/5Z5nQyU.jpeg", // ganti bebas
+    price:"Rp 50.000", discountPrice:"Rp 30.000", stock: 12, maxStock: 50, sold: 38 },
+  { id: 2, title: "1 Bulan (Garansi)", tag: "Spotify Premium", emoji:"⛓️", 
+    image: "https://i.imgur.com/wVw5xkJ.png", // ganti bebas
+    price:"Rp 30.000", discountPrice:"Rp 15.000", stock: 7, maxStock: 30, sold: 23 },
 ];
 
-// Best Seller
+/** Best Seller */
 const bestSellers = [
-  { id: "capcut", title: "Capcut Pro", subtitle: "Editor", emoji:"✂️", price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 20, maxStock: 50, sold: 30 },
-  { id: "config internet", title: "Config Internet", subtitle: "Internet", emoji:"🚀", price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 15, maxStock: 40, sold: 25 },
-  { id: "nordvpn", title: "NordVPN", subtitle: "1 Tahun", emoji:"🛡️", price:"Rp 80.000", discountPrice:"Rp 50.000", stock: 12, maxStock: 30, sold: 18 },
-  { id: "expressvpn", title: "ExpressVPN", subtitle: "1 Bulan", emoji:"🔒", price:"Rp 20.000", discountPrice:"Rp 15.000", stock: 10, maxStock: 25, sold: 15 },
-  { id: "canva", title: "Canva Pro", subtitle: "Design Tools", emoji:"🎨", price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 12, maxStock: 30, sold: 18 },
+  { id: "capcut", title: "Capcut Pro", subtitle: "Editor", emoji:"✂️",
+    image: "https://i.imgur.com/4cZyqfP.png",
+    price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 20, maxStock: 50, sold: 30 },
+  { id: "config internet", title: "Config Internet", subtitle: "Internet", emoji:"🚀",
+    image: "https://i.imgur.com/2J0J2yJ.png",
+    price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 15, maxStock: 40, sold: 25 },
+  { id: "nordvpn", title: "NordVPN", subtitle: "1 Tahun", emoji:"🛡️",
+    image: "https://i.imgur.com/0kZKX0N.png",
+    price:"Rp 80.000", discountPrice:"Rp 50.000", stock: 12, maxStock: 30, sold: 18 },
+  { id: "expressvpn", title: "ExpressVPN", subtitle: "1 Bulan", emoji:"🔒",
+    image: "https://i.imgur.com/3n9e3gE.png",
+    price:"Rp 90.000", discountPrice:"Rp 45.000", stock: 10, maxStock: 25, sold: 15 },
+  { id: "canva", title: "Canva Pro", subtitle: "Design Tools", emoji:"🎨",
+    image: "https://i.imgur.com/8mXxwJ8.png",
+    price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 12, maxStock: 30, sold: 18 },
 ];
 
-// AI Tools
+/** AI Tools */
 const aiTools = [
-  { id: "blackboxai", title: "Blackbox AI", subtitle: "Coding Tools", emoji:"🥷", price:"Rp 60.000", discountPrice:"Rp 30.000", stock: 12, maxStock: 30, sold: 18 },
-  { id: "chatgpt", title: "ChatGPT", subtitle: "AI Tools", emoji:"🧠", price:"Rp 70.000 / bulan", discountPrice:"Rp 50.000 / bulan", stock: 30, maxStock: 100, sold: 70 },
-  { id: "gemini", title: "Gemini", subtitle: "AI Tools", emoji:"✨", price:"Rp 100.000 / bulan", discountPrice:"Rp 20.000 / bulan", stock: 25, maxStock: 80, sold: 55 },
-  { id: "suno", title: "Suno AI", subtitle: "Music AI", emoji:"🎶", price:"Rp 250.000 / bulan", discountPrice:"Rp 200.000 / bulan", stock: 18, maxStock: 60, sold: 42 },
-  { id: "klingai", title: "Kling AI", subtitle: "Video AI", emoji:"🎥", price:"Rp 10.000 / hari", discountPrice:"Rp 5.000 / hari", stock: 15, maxStock: 40, sold: 25 },
-  { id: "pixverse", title: "Pixverse", subtitle: "Image/Video AI", emoji:"🖼️", price:"Rp 150.000 / bulan", discountPrice:"Rp 120.000 / bulan", stock: 10, maxStock: 25, sold: 15 },
+  { id: "blackboxai", title: "Blackbox AI", subtitle: "Coding Tools", emoji:"🥷",
+    image: "https://i.imgur.com/0clw1sW.png",
+    price:"Rp 60.000", discountPrice:"Rp 30.000", stock: 12, maxStock: 30, sold: 18 },
+  { id: "chatgpt", title: "ChatGPT", subtitle: "AI Tools", emoji:"🧠",
+    image: "https://i.imgur.com/6pC4Qv3.png",
+    price:"Rp 60.000 / bulan", discountPrice:"Rp 40.000 / bulan", stock: 30, maxStock: 100, sold: 70 },
+  { id: "gemini", title: "Gemini", subtitle: "AI Tools", emoji:"✨",
+    image: "https://i.imgur.com/5xk2G3M.png",
+    price:"Rp 100.000 / bulan", discountPrice:"Rp 20.000 / bulan", stock: 25, maxStock: 80, sold: 55 },
+  { id: "suno", title: "Suno AI", subtitle: "Music AI", emoji:"🎶",
+    image: "https://i.imgur.com/8O9xj1S.png",
+    price:"Rp 250.000 / bulan", discountPrice:"Rp 200.000 / bulan", stock: 18, maxStock: 60, sold: 42 },
+  { id: "klingai", title: "Kling AI", subtitle: "Video AI", emoji:"🎥",
+    image: "https://i.imgur.com/dpH0nX7.png",
+    price:"Rp 100.000 / bulan", discountPrice:"Rp 70.000 / bulan", stock: 15, maxStock: 40, sold: 25 },
+  { id: "pixverse", title: "Pixverse", subtitle: "Image/Video AI", emoji:"🖼️",
+    image: "https://i.imgur.com/BF7Q9nB.png",
+    price:"Rp 120.000 / bulan", discountPrice:"Rp 80.000 / bulan", stock: 10, maxStock: 25, sold: 15 },
 ];
 
-// Games
+/** Games */
 const games = [
-  {name:"Mobile Legends", sub:"Bang Bang", code:"ML", thumb:"🛡️", price:"Rp 40.000", discountPrice:"Rp 20.000", stock: 50, maxStock: 200, sold: 150},
-  {name:"FREE FIRE", sub:"Garena", code:"FF", thumb:"🔥", price:"Rp 50.000", discountPrice:"Rp 25.000", stock: 40, maxStock: 150, sold: 110},
-  {name:"PUBG Mobile", sub:"PUBG Corp", code:"PUBG", thumb:"🎯", price:"Rp 60.000", discountPrice:"Rp 30.000", stock: 35, maxStock: 100, sold: 65},
-  {name:"Genshin Impact", sub:"HoYoverse", code:"GI", thumb:"🌬️", price:"Rp 100.000", discountPrice:"Rp 50.000", stock: 12, maxStock: 50, sold: 38},
-  {name:"VALORANT", sub:"Riot Games", code:"VAL", thumb:"🎯", price:"Rp 90.000", discountPrice:"Rp 45.000", stock: 15, maxStock: 60, sold: 45},
-  {name:"MARVEL", sub:"NetEase", code:"MARV", thumb:"🦸", price:"Rp 80.000", discountPrice:"Rp 40.000", stock: 20, maxStock: 70, sold: 50},
-  {name:"Ragnarok M", sub:"Gravity", code:"RO", thumb:"⚔️", price:"Rp 70.000", discountPrice:"Rp 35.000", stock: 10, maxStock: 40, sold: 30},
-  {name:"Point Blank", sub:"Zepetto", code:"PB", thumb:"🔫", price:"Rp 60.000", discountPrice:"Rp 30.000", stock: 8, maxStock: 30, sold: 22},
-  {name:"Call of Duty", sub:"Mobile", code:"CODM", thumb:"☢️", price:"Rp 80.000", discountPrice:"Rp 40.000", stock: 9, maxStock: 30, sold: 21},
-  {name:"Roblox", sub:"Roblox Corp.", code:"RBX", thumb:"🧱", price:"Rp 30.000", discountPrice:"Rp 15.000", stock: 25, maxStock: 100, sold: 75},
+  {name:"Mobile Legends", sub:"Bang Bang", code:"ML", emoji:"🛡️",
+   image:"https://i.imgur.com/0k1n3iG.jpg",
+   price:"Rp 40.000", discountPrice:"Rp 20.000", stock: 50, maxStock: 200, sold: 150},
+  {name:"FREE FIRE", sub:"Garena", code:"FF", emoji:"🔥",
+   image:"https://i.imgur.com/1w0Y9mS.jpg",
+   price:"Rp 50.000", discountPrice:"Rp 25.000", stock: 40, maxStock: 150, sold: 110},
+  {name:"PUBG Mobile", sub:"PUBG Corp", code:"PUBG", emoji:"🎯",
+   image:"https://i.imgur.com/WQeQn7k.jpg",
+   price:"Rp 60.000", discountPrice:"Rp 30.000", stock: 35, maxStock: 100, sold: 65},
+  {name:"Genshin Impact", sub:"HoYoverse", code:"GI", emoji:"🌬️",
+   image:"https://i.imgur.com/3rZxXhJ.jpg",
+   price:"Rp 100.000", discountPrice:"Rp 50.000", stock: 12, maxStock: 50, sold: 38},
+  {name:"VALORANT", sub:"Riot Games", code:"VAL", emoji:"🎯",
+   image:"https://i.imgur.com/t0pQm4S.jpg",
+   price:"Rp 90.000", discountPrice:"Rp 45.000", stock: 15, maxStock: 60, sold: 45},
+  {name:"MARVEL", sub:"NetEase", code:"MARV", emoji:"🦸",
+   image:"https://i.imgur.com/uQ3f3c8.jpg",
+   price:"Rp 80.000", discountPrice:"Rp 40.000", stock: 20, maxStock: 70, sold: 50},
+  {name:"Ragnarok M", sub:"Gravity", code:"RO", emoji:"⚔️",
+   image:"https://i.imgur.com/5m8V8fP.jpg",
+   price:"Rp 70.000", discountPrice:"Rp 35.000", stock: 10, maxStock: 40, sold: 30},
+  {name:"Point Blank", sub:"Zepetto", code:"PB", emoji:"🔫",
+   image:"https://i.imgur.com/7YyWb0l.jpg",
+   price:"Rp 60.000", discountPrice:"Rp 30.000", stock: 8, maxStock: 30, sold: 22},
+  {name:"Call of Duty", sub:"Mobile", code:"CODM", emoji:"☢️",
+   image:"https://i.imgur.com/VqN3u2C.jpg",
+   price:"Rp 80.000", discountPrice:"Rp 40.000", stock: 9, maxStock: 30, sold: 21},
+  {name:"Roblox", sub:"Roblox Corp.", code:"RBX", emoji:"🧱",
+   image:"https://i.imgur.com/4wYk9vP.jpg",
+   price:"Rp 30.000", discountPrice:"Rp 15.000", stock: 25, maxStock: 100, sold: 75},
 ];
 
-// Card components
+/* ================== UI KOMPONEN KARTU ================== */
 function Card({children}:{children: React.ReactNode}){
   return <div className="relative bg-zinc-900/60 border border-zinc-800 rounded-2xl p-4 shadow-lg">{children}</div>
 }
@@ -93,7 +164,7 @@ function StockBar({stock, maxStock, sold}:{stock:number, maxStock:number, sold:n
   );
 }
 
-// Banner Slideshow
+/* ================== BANNER ================== */
 const banners = [
   { src: "/banner1.jpg", alt: "Banner 1" },
   { src: "/banner2.jpg", alt: "Banner 2" },
@@ -135,6 +206,7 @@ function Banner({ toggleMusic, playing }: { toggleMusic: () => void; playing: bo
   );
 }
 
+/* ================== PAGE ================== */
 export default function EmhaTechStyle(){
   const [darkMode, setDarkMode] = useState(true);
   const [playing, setPlaying] = useState(false);
@@ -150,7 +222,7 @@ export default function EmhaTechStyle(){
   const toggleMusic = () => {
     if (!audio) return;
     if (playing) audio.pause();
-    else audio.play();
+    else audio.play().catch(()=>{});
     setPlaying(!playing);
   };
 
@@ -160,6 +232,7 @@ export default function EmhaTechStyle(){
       <button 
         onClick={() => setDarkMode(!darkMode)} 
         className="fixed top-4 right-4 z-50 bg-indigo-600 text-white p-2 rounded-full shadow-md"
+        aria-label="Toggle theme"
       >
         {darkMode ? <Sun className="w-5 h-5"/> : <Moon className="w-5 h-5"/>}
       </button>
@@ -175,7 +248,7 @@ export default function EmhaTechStyle(){
               <Card key={item.id}>
                 <DiscountBadge price={item.price} discountPrice={item.discountPrice}/>
                 <div className="flex gap-3 items-center">
-                  <div className="text-3xl">{item.icon}</div>
+                  <Thumb src={item.image} emoji={item.emoji} alt={item.tag}/>
                   <div className="flex-1">
                     <div className="font-semibold">{item.title}</div>
                     <div className="text-xs text-gray-400">{item.tag}</div>
@@ -197,7 +270,7 @@ export default function EmhaTechStyle(){
               <Card key={b.id}>
                 <DiscountBadge price={b.price} discountPrice={b.discountPrice}/>
                 <div className="flex flex-col items-center gap-2">
-                  <div className="text-2xl">{b.emoji}</div>
+                  <Thumb src={b.image} emoji={b.emoji} alt={b.title}/>
                   <div className="font-semibold">{b.title}</div>
                   <div className="text-xs text-gray-400">{b.subtitle}</div>
                   <Price price={b.price} discountPrice={b.discountPrice}/>
@@ -217,7 +290,7 @@ export default function EmhaTechStyle(){
               <Card key={a.id}>
                 <DiscountBadge price={a.price} discountPrice={a.discountPrice}/>
                 <div className="flex flex-col items-center gap-2">
-                  <div className="text-2xl">{a.emoji}</div>
+                  <Thumb src={a.image} emoji={a.emoji} alt={a.title}/>
                   <div className="font-semibold">{a.title}</div>
                   <div className="text-xs text-gray-400">{a.subtitle}</div>
                   <Price price={a.price} discountPrice={a.discountPrice}/>
@@ -237,7 +310,7 @@ export default function EmhaTechStyle(){
               <Card key={g.code}>
                 <DiscountBadge price={g.price} discountPrice={g.discountPrice}/>
                 <div className="flex flex-col items-center gap-2">
-                  <div className="text-4xl">{g.thumb}</div>
+                  <Thumb src={g.image} emoji={g.emoji} alt={g.name}/>
                   <div className="font-semibold">{g.name}</div>
                   <div className="text-xs text-gray-400">{g.sub}</div>
                   <Price price={g.price} discountPrice={g.discountPrice}/>
@@ -251,9 +324,14 @@ export default function EmhaTechStyle(){
       </main>
 
       {/* Floating WA button */}
-      <button onClick={() => openWhatsApp("Customer Support", "Gratis Konsultasi")} className="fixed bottom-4 right-4 bg-green-500 rounded-full w-12 h-12 flex items-center justify-center shadow-xl">
+      <button
+        onClick={() => openWhatsApp("Customer Support", "Gratis Konsultasi")}
+        className="fixed bottom-4 right-4 bg-green-500 rounded-full w-12 h-12 flex items-center justify-center shadow-xl"
+        aria-label="Chat WhatsApp"
+      >
         <MessageCircle className="text-white"/>
       </button>
     </div>
   );
-}
+      }
+    

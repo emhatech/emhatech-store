@@ -23,6 +23,8 @@ function calcDiscount(price: string, discount: string): number {
 const flashItems = [
   { id: 1, title: "1 Bulan (Garansi)", tag: "Netflix Premium", icon:"🌀", price:"Rp 50.000", discountPrice:"Rp 30.000", stock: 12, maxStock: 50, sold: 38 },
   { id: 2, title: "1 Bulan (Garansi)", tag: "Spotify Premium", icon:"⛓️", price:"Rp 30.000", discountPrice:"Rp 15.000", stock: 7, maxStock: 30, sold: 23 },
+  { id: 3, title: "1 Bulan (Garansi)", tag: "Live Streaming YT 24 Jam", icon:"🕐", price:"Rp 50.000", discountPrice:"Rp 35.000", stock: 7, maxStock: 30, sold: 23 },
+  { id: 4, title: "1 USD (20k)", tag: "Paypal", icon:"💸", price:"Rp 100.000", discountPrice:"Rp 50.000", stock: 7, maxStock: 30, sold: 23 },
 ];
 
 // Best Seller
@@ -31,14 +33,14 @@ const bestSellers = [
   { id: "config internet", title: "Config Internet", subtitle: "Internet", emoji:"🚀", price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 15, maxStock: 40, sold: 25 },
   { id: "nordvpn", title: "NordVPN", subtitle: "1 Tahun", emoji:"🛡️", price:"Rp 80.000", discountPrice:"Rp 50.000", stock: 12, maxStock: 30, sold: 18 },
   { id: "expressvpn", title: "ExpressVPN", subtitle: "1 Bulan", emoji:"🔒", price:"Rp 20.000", discountPrice:"Rp 15.000", stock: 10, maxStock: 25, sold: 15 },
-  { id: "canva", title: "Canva Pro", subtitle: "Design Tools", emoji:"🎨", price:"Rp 20.000", discountPrice:"Rp 5.000", stock: 12, maxStock: 30, sold: 18 },
+  { id: "canva", title: "Canva Pro", subtitle: "Design Tools", emoji:"🎨", price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 12, maxStock: 30, sold: 18 },
 ];
 
 // AI Tools
 const aiTools = [
   { id: "blackboxai", title: "Blackbox AI", subtitle: "Coding Tools", emoji:"🥷", price:"Rp 60.000", discountPrice:"Rp 30.000", stock: 12, maxStock: 30, sold: 18 },
-  { id: "chatgpt", title: "ChatGPT", subtitle: "AI Tools", emoji:"🧠", price:"Rp 50.000 / bulan", discountPrice:"Rp 25.000 / bulan", stock: 30, maxStock: 100, sold: 70 },
-  { id: "gemini", title: "Gemini", subtitle: "AI Tools", emoji:"✨", price:"Rp 100.000 / tahun", discountPrice:"Rp 50.000 / tahun", stock: 25, maxStock: 80, sold: 55 },
+  { id: "chatgpt", title: "ChatGPT", subtitle: "AI Tools", emoji:"🧠", price:"Rp 70.000 / bulan", discountPrice:"Rp 50.000 / bulan", stock: 30, maxStock: 100, sold: 70 },
+  { id: "gemini", title: "Gemini", subtitle: "AI Tools", emoji:"✨", price:"Rp 100.000 / bulan", discountPrice:"Rp 20.000 / bulan", stock: 25, maxStock: 80, sold: 55 },
   { id: "suno", title: "Suno AI", subtitle: "Music AI", emoji:"🎶", price:"Rp 250.000 / bulan", discountPrice:"Rp 200.000 / bulan", stock: 18, maxStock: 60, sold: 42 },
   { id: "klingai", title: "Kling AI", subtitle: "Video AI", emoji:"🎥", price:"Rp 10.000 / hari", discountPrice:"Rp 5.000 / hari", stock: 15, maxStock: 40, sold: 25 },
   { id: "pixverse", title: "Pixverse", subtitle: "Image/Video AI", emoji:"🖼️", price:"Rp 150.000 / bulan", discountPrice:"Rp 120.000 / bulan", stock: 10, maxStock: 25, sold: 15 },
@@ -256,5 +258,4 @@ export default function EmhaTechStyle(){
       </button>
     </div>
   );
-   }
-    
+    }

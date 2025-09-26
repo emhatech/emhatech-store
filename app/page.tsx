@@ -120,7 +120,7 @@ function Banner({ toggleMusic, playing }: { toggleMusic: () => void; playing: bo
         {/* Running Text dengan gradien */}
         <div className="overflow-hidden whitespace-nowrap mb-2">
           <h2 className="inline-block text-xl font-bold animate-marquee bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 bg-clip-text text-transparent bg-[length:300%_300%] animate-gradient">
-             Wilujeng Sumping — Sahabat EMHATECH — Wilujeng Sumping — Sahabat EMHATECH—
+         😁Wilujeng Sumping😂Sahabat EMHATECH😆Wilujeng Sumping😅Sahabat EMHATECH🤣 Wilujeng Sumping☺️Sahabat EMHATECH😏
           </h2>
         </div>
 
@@ -260,3 +260,4 @@ export default function EmhaTechStyle(){
     </div>
   );
     }
+    

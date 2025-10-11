@@ -29,7 +29,7 @@ const flashItems = [
 
 // Best Seller
 const bestSellers = [
-  { id: "capcut", title: "Capcut Pro", subtitle: "Editor", emoji:"✂️", price:"Rp 20.000", discountPrice:"Rp 15.000", stock: 20, maxStock: 50, sold: 30 },
+  { id: "capcut", title: "Capcut Pro", subtitle: "Editor", emoji:"✂️", price:"Rp 10.000", discountPrice:"Rp 4.000", stock: 20, maxStock: 50, sold: 30 },
   { id: "config internet", title: "Config Internet", subtitle: "Internet", emoji:"🚀", price:"Rp 20.000", discountPrice:"Rp 10.000", stock: 15, maxStock: 40, sold: 25 },
   { id: "nordvpn", title: "NordVPN", subtitle: "1 Tahun", emoji:"🛡️", price:"Rp 80.000", discountPrice:"Rp 50.000", stock: 12, maxStock: 30, sold: 18 },
   { id: "expressvpn", title: "ExpressVPN", subtitle: "1 Bulan", emoji:"🔒", price:"Rp 25.000", discountPrice:"Rp 20.000", stock: 10, maxStock: 25, sold: 15 },

@@ -24,7 +24,7 @@ const flashItems = [
   { id: 1, title: "1 Bulan (Garansi)", tag: "Netflix Premium", icon:"🌀", price:"Rp 50.000", discountPrice:"Rp 40.000", stock: 12, maxStock: 50, sold: 38 },
   { id: 2, title: "1 Bulan (Garansi)", tag: "Spotify Premium", icon:"⛓️", price:"Rp 30.000", discountPrice:"Rp 15.000", stock: 7, maxStock: 30, sold: 23 },
   { id: 3, title: "1 Bulan (Garansi)", tag: "Live Streaming YT 24 Jam", icon:"🕐", price:"Rp 100.000", discountPrice:"Rp 50.000", stock: 7, maxStock: 30, sold: 23 },
-  { id: 4, title: "1 USD (20k)", tag: "Paypal", icon:"💸", price:"Rp 100.000", discountPrice:"Rp 50.000", stock: 7, maxStock: 30, sold: 23 },
+  { id: 4, title: "1 Bulan (Garansi)", tag: "Sora2", icon:"🍥", price:"Rp 50.000", discountPrice:"Rp 30.000", stock: 7, maxStock: 30, sold: 23 },
 ];
 
 // Best Seller
